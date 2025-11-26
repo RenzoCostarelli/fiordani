@@ -1,0 +1,40 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading2",
+						"content": {
+							"text": "Making"
+						}
+					}
+				]
+			},
+			"phone": {
+				"__TYPE__": "FieldContent",
+				"value": "become",
+				"type": "Text"
+			},
+			"office_phone": {
+				"__TYPE__": "FieldContent",
+				"value": "recent",
+				"type": "Text"
+			},
+			"address": {
+				"__TYPE__": "FieldContent",
+				"value": "metal",
+				"type": "Text"
+			},
+			"city": {
+				"__TYPE__": "FieldContent",
+				"value": "lead",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

@@ -1,0 +1,90 @@
+{
+  "id": "comerciales",
+  "type": "SharedSlice",
+  "name": "Comerciales",
+  "description": "Comerciales",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "zona_comercial": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Zona Comercial",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "heading2,strong,em"
+          }
+        },
+        "texto": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Texto",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em"
+          }
+        },
+        "comerciales": {
+          "type": "Group",
+          "config": {
+            "label": "Comerciales",
+            "repeat": true,
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "Imagen",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "zone": {
+                "type": "Image",
+                "config": {
+                  "label": "Zona",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "name": {
+                "type": "Text",
+                "config": {
+                  "label": "Nombre",
+                  "placeholder": ""
+                }
+              },
+              "position": {
+                "type": "Text",
+                "config": {
+                  "label": "Posición",
+                  "placeholder": ""
+                }
+              },
+              "title": {
+                "type": "Text",
+                "config": {
+                  "label": "Titulo",
+                  "placeholder": ""
+                }
+              },
+              "phone": {
+                "type": "Text",
+                "config": {
+                  "label": "Teléfono",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

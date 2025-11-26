@@ -1,0 +1,103 @@
+{
+  "id": "cotizaciones",
+  "type": "SharedSlice",
+  "name": "Cotizaciones",
+  "description": "Cotizaciones",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Titulo",
+            "placeholder": "",
+            "allowTargetBlank": false,
+            "single": "heading2,strong,em"
+          }
+        },
+        "text": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Texto",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em"
+          }
+        },
+        "bg_bcr": {
+          "type": "Image",
+          "config": {
+            "label": "Fondo BCR",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "title_bcr": {
+          "type": "Text",
+          "config": {
+            "label": "Titulo BCR",
+            "placeholder": ""
+          }
+        },
+        "subtitle_bcr": {
+          "type": "Text",
+          "config": {
+            "label": "Subtitulo BCR",
+            "placeholder": ""
+          }
+        },
+        "bg_promedios": {
+          "type": "Image",
+          "config": {
+            "label": "Fondo Promedios",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "title_promedios": {
+          "type": "Text",
+          "config": {
+            "label": "Titulo Promedios",
+            "placeholder": ""
+          }
+        },
+        "text_promedios": {
+          "type": "Text",
+          "config": {
+            "label": "Texto Promedios",
+            "placeholder": ""
+          }
+        },
+        "bg_precios": {
+          "type": "Image",
+          "config": {
+            "label": "Fondo Precios",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "title_prices": {
+          "type": "Text",
+          "config": {
+            "label": "Titulo Precios",
+            "placeholder": ""
+          }
+        },
+        "text_prices": {
+          "type": "Text",
+          "config": {
+            "label": "Texto Precios",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
