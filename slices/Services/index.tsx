@@ -28,11 +28,11 @@ const Services: FC<ServicesProps> = ({ slice }) => {
 
       ScrollTrigger.create({
         trigger: titleRef.current,
-        start: "top 200px",
-        end: sectionRef.current!.offsetHeight! - 100,
+        start: "top +=100",
+        end: sectionRef.current!.offsetHeight!,
         pin: true,
         pinSpacing: false,
-        markers: true,
+        // markers: true,
         scrub: true,
       });
       if (cards.length === 0) return;
@@ -45,7 +45,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
 
         ScrollTrigger.create({
           trigger: card,
-          start: "top 300px",
+          start: "top +=200",
           end: () => `+=${cardHeight * (totalCards - index)}`,
           pin: true,
           pinSpacing: false,
