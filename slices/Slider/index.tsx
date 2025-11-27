@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useRef } from "react";
+import { FC, useRef, useEffect } from "react";
 import { Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
@@ -8,10 +8,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+
+// Register GSAP plugin
+gsap.registerPlugin(SplitText);
 
 /**
  * Props for `Slider`.
@@ -24,6 +29,41 @@ export type SliderProps = SliceComponentProps<Content.SliderSlice>;
 const Slider: FC<SliderProps> = ({ slice }) => {
   const slides = slice.primary.slide;
   const swiperRef = useRef<SwiperType | null>(null);
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const animateText = (element: HTMLElement) => {
+    const split = new SplitText(element, {
+      type: "chars,words",
+      charsClass: "char",
+      wordsClass: "word",
+    });
+
+    gsap.set(element, { opacity: 1 });
+
+    gsap.fromTo(
+      split.chars,
+      {
+        opacity: 0,
+        y: 50,
+        rotationX: -90,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        duration: 0.8,
+        stagger: 0.02,
+        ease: "power3.out",
+      }
+    );
+  };
+
+  useEffect(() => {
+    // Animate the first slide on mount
+    if (textRefs.current[0]) {
+      animateText(textRefs.current[0]);
+    }
+  }, []);
 
   return (
     <section
@@ -47,6 +87,12 @@ const Slider: FC<SliderProps> = ({ slice }) => {
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
+            onSlideChangeTransitionEnd={(swiper) => {
+              const realIndex = swiper.realIndex;
+              if (textRefs.current[realIndex]) {
+                animateText(textRefs.current[realIndex]!);
+              }
+            }}
             className="h-full"
           >
             {slides.map((slide, index) => (
@@ -59,7 +105,12 @@ const Slider: FC<SliderProps> = ({ slice }) => {
                   field={slide.imagen}
                   alt=""
                 />
-                <div className="max-w-[1200px] mx-auto relative z-50 text-5xl text-white font-thin">
+                <div
+                  ref={(el) => {
+                    textRefs.current[index] = el;
+                  }}
+                  className="max-w-[1200px] mx-auto relative z-50 text-5xl text-white font-thin opacity-0 drop-shadow-xl drop-shadow-black"
+                >
                   <PrismicRichText field={slide.title} />
                 </div>
               </SwiperSlide>
