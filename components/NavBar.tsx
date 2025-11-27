@@ -1,3 +1,5 @@
+import LogoSvg from "./Logo";
+
 const MENU_ITEMS = [
   { label: "Home", href: "#" },
   { label: "Servicios", href: "#" },
@@ -10,7 +12,9 @@ export default function NavBar() {
   return (
     <div className="fixed w-full top-0 bg-emerald-600/50 backdrop-blur-sm py-3 z-50">
       <div className="flex justify-between max-w-[1200px] mx-auto items-center">
-        <div className="w-20 h-6 bg-white"></div>
+        <div className="relative w-12">
+          <LogoSvg />
+        </div>
         <div className="border border-white rounded-full px-1 py-1 flex gap-1">
           {MENU_ITEMS.map((item, index) => (
             <a

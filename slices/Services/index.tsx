@@ -18,12 +18,23 @@ export type ServicesProps = SliceComponentProps<Content.ServicesSlice>;
  */
 const Services: FC<ServicesProps> = ({ slice }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
   const services = slice.primary.services;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>(".card");
 
+      ScrollTrigger.create({
+        trigger: titleRef.current,
+        start: "top 200px",
+        end: sectionRef.current!.offsetHeight! - 100,
+        pin: true,
+        pinSpacing: false,
+        markers: true,
+        scrub: true,
+      });
       if (cards.length === 0) return;
 
       cards.forEach((card, index) => {
@@ -34,7 +45,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
 
         ScrollTrigger.create({
           trigger: card,
-          start: "top 100px",
+          start: "top 300px",
           end: () => `+=${cardHeight * (totalCards - index)}`,
           pin: true,
           pinSpacing: false,
@@ -51,12 +62,15 @@ const Services: FC<ServicesProps> = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="min-h-svh "
+      className="min-h-svh"
+      ref={sectionRef}
     >
       <div className="max-w-[1200px] mx-auto relative py-16" ref={containerRef}>
-        <div className="mb-8">
-          <h2 className="text-black text-5xl">Servicios</h2>
-          <p>Nos ocupamos de todo el proceso de producción de granos.</p>
+        <div className="mb-8" ref={titleRef}>
+          <h2 className="text-black text-5xl font-serif">Servicios</h2>
+          <p className="text-2xl font-light">
+            Nos ocupamos de todo el proceso de producción de granos.
+          </p>
         </div>
         {services?.map((service, index) => (
           <div

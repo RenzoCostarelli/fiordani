@@ -56,7 +56,7 @@ const Cotizaciones = async ({ slice }: CotizacionesProps) => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <div className="bg-amber-100 rounded-xl h-80 w-full grid grid-cols-7 gap-2 px-6 py-4 relative overflow-hidden">
+          <div className="bg-amber-100 rounded-3xl h-80 w-full grid grid-cols-7 gap-2 px-4 py-4 relative overflow-hidden">
             <div className="absolute w-full h-full inset-0 object-cover overflow-hidden [&>img]:w-full [&>img]:h-full [&>img]:inset-0 [&>img]:object-cover">
               <PrismicNextImage field={slice.primary.bg_bcr} alt="" />
             </div>
