@@ -1,7 +1,13 @@
+"use client";
 import { FC } from "react";
 import { Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 /**
  * Props for `Distribuidores`.
@@ -20,7 +26,7 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="pb-16 bg-[#dcd9d2]"
+      className="py-16"
     >
       <div className="max-w-[1200px] mx-auto">
         <div className="w-full text-4xl text-center font-serif">
@@ -29,17 +35,40 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
         <div className="w-full text-xl text-center">
           <PrismicRichText field={subtitle} />
         </div>
-        <div className="flex items-center justify-center gap-4 mt-8">
-          {logos.map((logo, index) => (
-            <div key={index} className="w-36">
-              <PrismicNextImage field={logo.logo} alt="" />
-              {/* <img
-              src={logo.url}
-              alt={logo.alt || `Logo ${index + 1}`}
-              className="w-full h-full object-contain"
-            /> */}
-            </div>
-          ))}
+        <div className="mt-8 px-4">
+          <Swiper
+            modules={[Autoplay, Pagination, Navigation]}
+            slidesPerView={1}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+            }}
+            className="distributor-swiper"
+          >
+            {logos.map((logo, index) => (
+              <SwiperSlide key={index}>
+                <div className="h-80 w-full">
+                  <PrismicNextImage
+                    field={logo.logo}
+                    alt=""
+                    className="h-full object-contain object-center mx-auto"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </section>

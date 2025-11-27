@@ -1,6 +1,12 @@
+"use client";
 import { FC } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 /**
  * Props for `Comerciales`.
@@ -25,10 +31,33 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
             Estés donde estés
           </p>
         </div>
-        <div className="flex gap-4 col-start-5 2xl:col-start-6">
-          <div className="h-[400px] aspect-square bg-[#49614e] rounded-2xl"></div>
-          <div className="h-[400px] aspect-square bg-[#49614e] rounded-2xl"></div>
-          <div className="h-[400px] aspect-square bg-[#49614e] rounded-2xl"></div>
+        <div className="col-start-5 2xl:col-start-6 col-span-8">
+          <Swiper
+            modules={[Autoplay, Pagination, Navigation]}
+            spaceBetween={16}
+            slidesPerView={2.5}
+            // pagination={{ clickable: true }}
+            // navigation={true}
+            breakpoints={{
+              768: {
+                slidesPerView: 1.5,
+              },
+              1024: {
+                slidesPerView: 2.5,
+              },
+            }}
+            className="comerciales-swiper"
+          >
+            <SwiperSlide>
+              <div className="h-[400px]  bg-[#49614e] rounded-2xl"></div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="h-[400px]  bg-[#49614e] rounded-2xl"></div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="h-[400px]  bg-[#49614e] rounded-2xl"></div>
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
     </section>

@@ -8,7 +8,7 @@ const MENU_ITEMS = [
 
 export default function NavBar() {
   return (
-    <div className="fixed w-full top-0 bg-emerald-600 py-3 z-9">
+    <div className="fixed w-full top-0 bg-emerald-600/50 backdrop-blur-sm py-3 z-50">
       <div className="flex justify-between max-w-[1200px] mx-auto items-center">
         <div className="w-20 h-6 bg-white"></div>
         <div className="border border-white rounded-full px-1 py-1 flex gap-1">

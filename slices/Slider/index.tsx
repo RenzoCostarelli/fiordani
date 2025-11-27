@@ -2,7 +2,7 @@
 
 import { FC, useRef } from "react";
 import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -29,7 +29,7 @@ const Slider: FC<SliderProps> = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="w-full overflow-hidden h-[75svh] relative"
+      className="w-full overflow-hidden h-[85svh] md:h-[65svh] relative"
     >
       {slides && slides.length > 0 && (
         <>
@@ -50,17 +50,23 @@ const Slider: FC<SliderProps> = ({ slice }) => {
             className="h-full"
           >
             {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
+              <SwiperSlide
+                key={index}
+                className="relative grid place-content-center"
+              >
                 <PrismicNextImage
-                  className="w-full h-full"
+                  className="w-full h-full object-cover object-center absolute inset-0"
                   field={slide.imagen}
                   alt=""
                 />
+                <div className="max-w-[1200px] mx-auto relative z-50 text-5xl text-white font-thin">
+                  <PrismicRichText field={slide.title} />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
 
-          <div className="flex gap-5 items-center text-white absolute  bottom-10 right-10 z-50">
+          <div className="flex gap-5 items-center text-white absolute  bottom-10 right-10 z-10">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
               className="custom-swiper-button-prev cursor-pointer p-1 border-2 rounded-full transition-all opacity-90 border-white hover:opacity-100 hover:scale-105 hover:bg-white hover:text-neutral-400"
