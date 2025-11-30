@@ -77,6 +77,7 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className="pb-16"
+      id="distribuidores"
     >
       <div className="mx-auto relative">
         <div className="w-full text-4xl text-center font-serif">

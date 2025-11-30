@@ -1,0 +1,28 @@
+{
+  "id": "formulario_contacto_page",
+  "type": "SharedSlice",
+  "name": "FormularioContactoPage",
+  "description": "FormularioContactoPage",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Titulo",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "heading1,strong,em"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

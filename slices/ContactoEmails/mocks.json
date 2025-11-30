@@ -1,0 +1,35 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"email": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"email_direction",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "shoot",
+									"type": "Text"
+								}
+							],
+							[
+								"area",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "PRODUCCIÓN AGROPECUARIA",
+									"type": "Select"
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

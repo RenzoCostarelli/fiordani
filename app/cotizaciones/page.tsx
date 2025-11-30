@@ -63,7 +63,7 @@ export default async function CotizacionesPage() {
 
   return (
     <section className="pt-32 pb-16 bg-white min-h-screen">
-      <div className="max-w-[1200px] mx-auto px-4">
+      <div className="container mx-auto px-4">
         <div className="mb-8">
           <h1 className="text-4xl font-serif font-bold text-[#002f2f] tracking-wider mb-2">
             Cotizaciones

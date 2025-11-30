@@ -1,0 +1,53 @@
+{
+  "id": "contacto_emails",
+  "type": "SharedSlice",
+  "name": "ContactoEmails",
+  "description": "ContactoEmails",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "email": {
+          "type": "Group",
+          "config": {
+            "label": "Email",
+            "repeat": true,
+            "fields": {
+              "email_direction": {
+                "type": "Text",
+                "config": {
+                  "label": "Email",
+                  "placeholder": ""
+                }
+              },
+              "area": {
+                "type": "Select",
+                "config": {
+                  "label": "Area",
+                  "placeholder": "",
+                  "options": [
+                    "ADMINISTRACION",
+                    "FINANZAS",
+                    "CONTABLE E IMPOSITIVA",
+                    "GRANOS",
+                    "INSUMOS",
+                    "PRODUCCIÓN AGROPECUARIA",
+                    "PLANTA DE ACOPIO",
+                    "SUCURSAL DE LOS QUIRQUINCHOS",
+                    "RSE"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

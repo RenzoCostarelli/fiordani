@@ -3,14 +3,15 @@ import { useEffect, useRef } from "react";
 import LogoSvg from "./Logo";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SITE_URL } from "@/lib/constants";
 gsap.registerPlugin(ScrollTrigger);
 
 const MENU_ITEMS = [
-  { label: "Home", href: "#" },
-  { label: "Servicios", href: "#" },
-  { label: "Cotizaciones", href: "#" },
-  { label: "Distribuidores", href: "#" },
-  { label: "Contacto", href: "#" },
+  { label: "Home", href: "/" },
+  { label: "Servicios", href: `${SITE_URL}/#servicios` },
+  { label: "Cotizaciones", href: "/cotizaciones" },
+  { label: "Distribuidores", href: `${SITE_URL}/#distribuidores` },
+  { label: "Contacto", href: "/contacto" },
 ];
 
 export default function NavBar() {

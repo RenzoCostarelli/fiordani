@@ -69,7 +69,10 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type ContactoDocumentDataSlicesSlice = SliderSlice;
+type ContactoDocumentDataSlicesSlice =
+  | FormularioContactoPageSlice
+  | ContactoEmailsSlice
+  | HeroContactSlice;
 
 /**
  * Content for Contacto documents
@@ -128,7 +131,7 @@ interface ContactoDocumentData {
  * @typeParam Lang - Language API ID of the document.
  */
 export type ContactoDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithoutUID<
+  prismic.PrismicDocumentWithUID<
     Simplify<ContactoDocumentData>,
     "contacto",
     Lang
@@ -490,6 +493,88 @@ export type ContactoSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *ContactoEmails → Default → Primary → Email*
+ */
+export interface ContactoEmailsSliceDefaultPrimaryEmailItem {
+  /**
+   * Email field in *ContactoEmails → Default → Primary → Email*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contacto_emails.default.primary.email[].email_direction
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  email_direction: prismic.KeyTextField;
+
+  /**
+   * Area field in *ContactoEmails → Default → Primary → Email*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contacto_emails.default.primary.email[].area
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  area: prismic.SelectField<
+    | "ADMINISTRACION"
+    | "FINANZAS"
+    | "CONTABLE E IMPOSITIVA"
+    | "GRANOS"
+    | "INSUMOS"
+    | "PRODUCCIÓN AGROPECUARIA"
+    | "PLANTA DE ACOPIO"
+    | "SUCURSAL DE LOS QUIRQUINCHOS"
+    | "RSE"
+  >;
+}
+
+/**
+ * Primary content in *ContactoEmails → Default → Primary*
+ */
+export interface ContactoEmailsSliceDefaultPrimary {
+  /**
+   * Email field in *ContactoEmails → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contacto_emails.default.primary.email[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  email: prismic.GroupField<
+    Simplify<ContactoEmailsSliceDefaultPrimaryEmailItem>
+  >;
+}
+
+/**
+ * Default variation for ContactoEmails Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ContactoEmailsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ContactoEmailsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ContactoEmails*
+ */
+type ContactoEmailsSliceVariation = ContactoEmailsSliceDefault;
+
+/**
+ * ContactoEmails Shared Slice
+ *
+ * - **API ID**: `contacto_emails`
+ * - **Description**: ContactoEmails
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ContactoEmailsSlice = prismic.SharedSlice<
+  "contacto_emails",
+  ContactoEmailsSliceVariation
+>;
+
+/**
  * Primary content in *Cotizaciones → Default → Primary*
  */
 export interface CotizacionesSliceDefaultPrimary {
@@ -724,6 +809,96 @@ type DistribuidoresSliceVariation = DistribuidoresSliceDefault;
 export type DistribuidoresSlice = prismic.SharedSlice<
   "distribuidores",
   DistribuidoresSliceVariation
+>;
+
+/**
+ * Primary content in *FormularioContactoPage → Default → Primary*
+ */
+export interface FormularioContactoPageSliceDefaultPrimary {
+  /**
+   * Titulo field in *FormularioContactoPage → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: formulario_contacto_page.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+}
+
+/**
+ * Default variation for FormularioContactoPage Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FormularioContactoPageSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FormularioContactoPageSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *FormularioContactoPage*
+ */
+type FormularioContactoPageSliceVariation = FormularioContactoPageSliceDefault;
+
+/**
+ * FormularioContactoPage Shared Slice
+ *
+ * - **API ID**: `formulario_contacto_page`
+ * - **Description**: FormularioContactoPage
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FormularioContactoPageSlice = prismic.SharedSlice<
+  "formulario_contacto_page",
+  FormularioContactoPageSliceVariation
+>;
+
+/**
+ * Primary content in *HeroContact → Default → Primary*
+ */
+export interface HeroContactSliceDefaultPrimary {
+  /**
+   * Imagen field in *HeroContact → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_contact.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for HeroContact Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroContactSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroContactSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HeroContact*
+ */
+type HeroContactSliceVariation = HeroContactSliceDefault;
+
+/**
+ * HeroContact Shared Slice
+ *
+ * - **API ID**: `hero_contact`
+ * - **Description**: HeroContact
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroContactSlice = prismic.SharedSlice<
+  "hero_contact",
+  HeroContactSliceVariation
 >;
 
 /**
@@ -1082,6 +1257,11 @@ declare module "@prismicio/client" {
       ContactoSliceDefaultPrimary,
       ContactoSliceVariation,
       ContactoSliceDefault,
+      ContactoEmailsSlice,
+      ContactoEmailsSliceDefaultPrimaryEmailItem,
+      ContactoEmailsSliceDefaultPrimary,
+      ContactoEmailsSliceVariation,
+      ContactoEmailsSliceDefault,
       CotizacionesSlice,
       CotizacionesSliceDefaultPrimary,
       CotizacionesSliceVariation,
@@ -1091,6 +1271,14 @@ declare module "@prismicio/client" {
       DistribuidoresSliceDefaultPrimary,
       DistribuidoresSliceVariation,
       DistribuidoresSliceDefault,
+      FormularioContactoPageSlice,
+      FormularioContactoPageSliceDefaultPrimary,
+      FormularioContactoPageSliceVariation,
+      FormularioContactoPageSliceDefault,
+      HeroContactSlice,
+      HeroContactSliceDefaultPrimary,
+      HeroContactSliceVariation,
+      HeroContactSliceDefault,
       HeroServicesSlice,
       HeroServicesSliceDefaultPrimary,
       HeroServicesSliceVariation,

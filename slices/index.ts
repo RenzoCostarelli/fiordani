@@ -5,8 +5,11 @@ import dynamic from "next/dynamic";
 export const components = {
   comerciales: dynamic(() => import("./Comerciales")),
   contacto: dynamic(() => import("./Contacto")),
+  contacto_emails: dynamic(() => import("./ContactoEmails")),
   cotizaciones: dynamic(() => import("./Cotizaciones")),
   distribuidores: dynamic(() => import("./Distribuidores")),
+  formulario_contacto_page: dynamic(() => import("./FormularioContactoPage")),
+  hero_contact: dynamic(() => import("./HeroContact")),
   hero_services: dynamic(() => import("./HeroServices")),
   services: dynamic(() => import("./Services")),
   servicios: dynamic(() => import("./Servicios")),

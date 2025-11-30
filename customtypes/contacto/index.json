@@ -6,12 +6,25 @@
   "status": true,
   "json": {
     "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "uid",
+          "placeholder": ""
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "slider": {
+            "formulario_contacto_page": {
+              "type": "SharedSlice"
+            },
+            "contacto_emails": {
+              "type": "SharedSlice"
+            },
+            "hero_contact": {
               "type": "SharedSlice"
             }
           }

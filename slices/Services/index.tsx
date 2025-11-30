@@ -105,8 +105,9 @@ const Services: FC<ServicesProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="min-h-svh"
       ref={sectionRef}
+      id="servicios"
     >
-      <div className="max-w-[1200px] mx-auto relative py-16" ref={containerRef}>
+      <div className="container mx-auto relative py-16" ref={containerRef}>
         <div className="mb-0" ref={titleRef}>
           <ServicesTitle
             title={"Servicios"}
