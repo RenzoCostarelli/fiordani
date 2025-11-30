@@ -3,6 +3,7 @@ import { Barlow, Montserrat, Gloock } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import SmoothScrolling from "@/components/SmoothScrolling";
+import Footer from "@/components/Footer";
 
 const barlow = Barlow({
   variable: "--font-barlow",
@@ -39,6 +40,7 @@ export default function RootLayout({
         <SmoothScrolling />
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );

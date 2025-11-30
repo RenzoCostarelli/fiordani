@@ -1,12 +1,14 @@
 "use client";
-import { FC, use, useEffect, useRef } from "react";
+import ServicesTitle from "@/components/ServicesTitle";
 import { Content } from "@prismicio/client";
+import { PrismicNextImage } from "@prismicio/next";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { PrismicNextImage } from "@prismicio/next";
+import { SplitText } from "gsap/SplitText";
+import { FC, useEffect, useRef } from "react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 /**
  * Props for `Services`.
@@ -46,7 +48,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
         ScrollTrigger.create({
           trigger: card,
           start: "top +=200",
-          end: () => `+=${cardHeight * (totalCards - index)}`,
+          end: `+=${cardHeight * (totalCards - index)}`,
           pin: true,
           pinSpacing: false,
           // markers: true,
@@ -67,18 +69,17 @@ const Services: FC<ServicesProps> = ({ slice }) => {
     >
       <div className="max-w-[1200px] mx-auto relative py-16" ref={containerRef}>
         <div className="mb-8" ref={titleRef}>
-          <h2 className="text-black text-5xl font-serif">Servicios</h2>
-          <p className="text-2xl font-light">
-            Nos ocupamos de todo el proceso de producción de granos.
-          </p>
+          <ServicesTitle
+            title={"Servicios"}
+            text={"Nos ocupamos de todo el proceso de producción de granos."}
+          />
         </div>
         {services?.map((service, index) => (
           <div
             key={index}
-            className={`p-6 mb-4 h-[75svh] text-white rounded-2xl card relative`}
+            className={`p-6 mb-4 h-[65svh] text-white rounded-2xl card relative`}
             style={{
               backgroundColor: service.bg_color || undefined,
-              top: `${index * 55}px`,
             }}
             data-card
           >

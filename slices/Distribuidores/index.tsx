@@ -78,19 +78,19 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="pb-16"
     >
-      <div className="max-w-[1400px] mx-auto relative">
-        <div className="absolute h-full w-full inset-0 bg-linear-to-r from-white from-2% via-transparent to-white to-98% z-10"></div>
+      <div className="mx-auto relative">
         <div className="w-full text-4xl text-center font-serif">
           <PrismicRichText field={title} />
         </div>
         <div className="w-full text-xl text-center">
           <PrismicRichText field={subtitle} />
         </div>
-        <div className="mt-8 overflow-hidden">
+        <div className="mt-8 overflow-hidden relative">
+          {/* <div className="absolute h-full w-full inset-0 bg-linear-to-r from-white from-1% via-transparent to-white to-99% z-10 opacity-90"></div> */}
           <div ref={marqueeRef} className="flex will-change-transform">
             {/* First set of logos */}
             {logos.map((logo, index) => (
-              <div key={`logo-1-${index}`} className="flex-shrink-0 px-8">
+              <div key={`logo-1-${index}`} className="shrink-0 px-8">
                 <div className="h-80 w-80">
                   <PrismicNextImage
                     field={logo.logo}
@@ -102,7 +102,7 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
             ))}
             {/* Duplicate set for seamless loop */}
             {logos.map((logo, index) => (
-              <div key={`logo-2-${index}`} className="flex-shrink-0 px-8">
+              <div key={`logo-2-${index}`} className="shrink-0 px-8">
                 <div className="h-80 w-80">
                   <PrismicNextImage
                     field={logo.logo}

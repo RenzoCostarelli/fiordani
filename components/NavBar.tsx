@@ -11,7 +11,7 @@ const MENU_ITEMS = [
 export default function NavBar() {
   return (
     <div className="fixed w-full top-0 bg-emerald-600/50 backdrop-blur-sm py-3 z-50">
-      <div className="flex justify-between max-w-[1200px] mx-auto items-center">
+      <div className="flex justify-between w-[1200px] mx-auto items-center">
         <div className="relative w-12">
           <LogoSvg />
         </div>
