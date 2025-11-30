@@ -1,4 +1,9 @@
+"use client";
+import { useEffect, useRef } from "react";
 import LogoSvg from "./Logo";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const MENU_ITEMS = [
   { label: "Home", href: "#" },
@@ -9,8 +14,42 @@ const MENU_ITEMS = [
 ];
 
 export default function NavBar() {
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const showNav = gsap
+        .from(navRef.current, {
+          yPercent: -100,
+          duration: 0.4,
+          ease: "power2.inOut",
+          paused: true,
+        })
+        .progress(1);
+
+      ScrollTrigger.create({
+        start: "top -50%",
+        end: "max",
+        // markers: true,
+        onUpdate: (self) => {
+          if (self.direction === -1) {
+            showNav.play();
+          } else {
+            showNav.reverse();
+          }
+        },
+      });
+    });
+
+    return () => {
+      ctx.kill();
+    };
+  }, []);
   return (
-    <div className="fixed w-full top-0 bg-emerald-600/50 backdrop-blur-sm py-3 z-50">
+    <div
+      className="fixed w-full top-0 bg-emerald-600/50 backdrop-blur-sm py-3 z-50"
+      ref={navRef}
+    >
       <div className="flex justify-between w-[1200px] mx-auto items-center">
         <div className="relative w-12">
           <LogoSvg />
