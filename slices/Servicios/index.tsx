@@ -18,7 +18,7 @@ const Servicios: FC<ServiciosProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="pt-16 pb-8 bg-[#dcd9d2]"
     >
-      <div className="container mx-auto">
+      <div className="container mx-auto md:p-0 px-4">
         <div className="w-full bg-gray-200 rounded-xl place-content-center h-[350px] p-6 relative overflow-hidden">
           <div className="absolute inset-0 w-full h-full [&>img]:object-cover [&>img]:w-full [&>img]:h-full [&>img]:inset-0">
             <PrismicNextImage field={slice.primary.image} alt="" />

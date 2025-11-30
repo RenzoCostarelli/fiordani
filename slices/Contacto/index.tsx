@@ -18,8 +18,8 @@ const Contacto: FC<ContactoProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
       className="bg-[#a8b3ab] py-16"
     >
-      <div className="grid grid-cols-12 mx-auto gap-6 overflow-hidden">
-        <div className="col-start-2 2xl:col-start-4 col-span-2  text-[#49614e] flex-1 w-max">
+      <div className="md:px-0 px-4 md:grid grid-cols-1 md:grid-cols-12 mx-auto gap-6 overflow-hidden">
+        <div className="col-start-2 2xl:col-start-4 col-span-2 text-[#49614e] flex-1 w-max mb-8 md:mb-0">
           <h2 className="text-5xl font-serif mb-8">Contacto</h2>
           <div className="uppercase">
             <ul>
@@ -30,7 +30,7 @@ const Contacto: FC<ContactoProps> = ({ slice }) => {
             </ul>
           </div>
         </div>
-        <div className="flex gap-4 col-start-5 2xl:col-start-6 2xl:col-end-10 col-end-12">
+        <div className="flex gap-4 md:col-start-5 2xl:col-start-6 2xl:col-end-10 col-end-12">
           <ContactForm />
         </div>
       </div>

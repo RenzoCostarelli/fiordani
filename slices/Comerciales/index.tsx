@@ -31,20 +31,22 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
   useEffect(() => {
     const slides = gsap.utils.toArray<HTMLElement>("[data-slide]");
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ paused: true }).from(slides, {
-        y: 30,
-        opacity: 0,
-        // rotationX: -90,
-        duration: 0.8,
-        stagger: 0.3,
-        ease: "power3.out",
-      });
-
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top center",
-        animation: tl,
-        // markers: true,
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 768px)", () => {
+        const tl = gsap.timeline({ paused: true }).from(slides, {
+          y: 30,
+          opacity: 0,
+          // rotationX: -90,
+          duration: 0.8,
+          stagger: 0.3,
+          ease: "power3.out",
+        });
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top center",
+          animation: tl,
+          // markers: true,
+        });
       });
     }, slides);
     return () => ctx.revert();
@@ -57,8 +59,8 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
       className="bg-[#a8b3ab] py-16"
       ref={sectionRef}
     >
-      <div className="grid grid-cols-12 mx-auto gap-8 overflow-hidden">
-        <div className="col-start-2 2xl:col-start-4 col-span-2  text-[#49614e] flex-1 w-max">
+      <div className="md:grid grid-cols-12 mx-auto gap-8 overflow-hidden px-4 md:px-0">
+        <div className="col-start-2 2xl:col-start-4 col-span-2  text-[#49614e] flex-1 w-max mb-8 md:mb-0">
           <div className="text-4xl font-serif mb-8">
             <PrismicRichText field={slice.primary.zona_comercial} />
           </div>
@@ -67,11 +69,11 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
             <PrismicRichText field={slice.primary.texto} />
           </div>
         </div>
-        <div className="col-start-5 2xl:col-start-6 col-span-8">
+        <div className="md:col-start-5 2xl:col-start-6 col-span-8">
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={0}
-            slidesPerView={2.5}
+            slidesPerView={1.1}
             breakpoints={{
               768: {
                 slidesPerView: 1.5,

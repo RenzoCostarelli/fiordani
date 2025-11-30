@@ -107,7 +107,10 @@ const Services: FC<ServicesProps> = ({ slice }) => {
       ref={sectionRef}
       id="servicios"
     >
-      <div className="container mx-auto relative py-16" ref={containerRef}>
+      <div
+        className="container mx-auto relative py-16 md:px-0 px-4"
+        ref={containerRef}
+      >
         <div className="mb-0" ref={titleRef}>
           <ServicesTitle
             title={"Servicios"}

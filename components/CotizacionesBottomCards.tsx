@@ -89,7 +89,7 @@ export default function CotizacionesBottomCards({
     return () => ctx.revert();
   }, []);
   return (
-    <div className="grid grid-cols-12 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
       <div
         className="col-span-4 place-content-end bg-[#48604d] p-6 rounded-xl h-[300px] relative text-white"
         data-card

@@ -80,7 +80,7 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
       id="distribuidores"
     >
       <div className="mx-auto relative">
-        <div className="w-full text-4xl text-center font-serif">
+        <div className="w-full text-3xl md:text-4xl text-center font-serif">
           <PrismicRichText field={title} />
         </div>
         <div className="w-full text-xl text-center">

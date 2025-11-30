@@ -109,7 +109,7 @@ const Slider: FC<SliderProps> = ({ slice }) => {
                   ref={(el) => {
                     textRefs.current[index] = el;
                   }}
-                  className="container mx-auto relative z-50 text-6xl text-white font-thin opacity-0 drop-shadow-xl drop-shadow-black"
+                  className="container mx-auto relative z-50 text-4xl md:text-6xl text-white font-thin opacity-0 drop-shadow-xl drop-shadow-black"
                 >
                   <PrismicRichText field={slide.title} />
                 </div>

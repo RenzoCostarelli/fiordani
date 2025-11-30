@@ -9,13 +9,13 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="bg-[#41614b] py-8 w-full">
-      <div className="flex justify-between w-[1200px] mx-auto items-center">
-        <div className="flex items-center justify-between gap-6 ">
+      <div className="flex flex-col md:flex-row justify-between container mx-auto items-center">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 ">
           <div className="relative w-12">
             <LogoSvg />
           </div>
           <div className="flex flex-col gap-2 text-white">
-            <div className="flex items-center font-light gap-5">
+            <div className="flex flex-col md:flex-row  items-center font-light gap-5">
               <p>info@fiordanirenzi.com.ar</p>
               <div className="flex items-center gap-2">
                 <Link
@@ -48,13 +48,13 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <p className="font-light text-sm">
+              <p className="font-light text-sm text-center md:text-left">
                 COPYRIGHT 2025 / TODOS LOS DERECHOS RESERVADOS
               </p>
             </div>
           </div>
         </div>
-        <div className="w-74">
+        <div className="w-74 mt-8 md:mt-0">
           <Image
             src={"/ampersand_logo.svg"}
             alt="Ampersand Group Logo"

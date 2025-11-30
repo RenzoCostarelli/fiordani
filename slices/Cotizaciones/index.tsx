@@ -50,7 +50,7 @@ const Cotizaciones = async ({ slice }: CotizacionesProps) => {
       data-slice-variation={slice.variation}
       className="py-16 bg-white"
     >
-      <div className="container mx-auto">
+      <div className="container mx-auto md:p-0 px-4">
         <CotizacionesTitle
           title={slice.primary.title}
           text={slice.primary.text}
