@@ -1,7 +1,7 @@
 import CotizacionesBcrCard from "@/components/CotizacionesBcrCard";
 import CotizacionesBottomCards from "@/components/CotizacionesBottomCards";
 import CotizacionesTitle from "@/components/CotizacionesTitle";
-import { getValidTradingDate } from "@/lib/utils";
+import { getValidTradingDate, getPreviousBusinessDay, formatDate } from "@/lib/utils";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 
@@ -16,24 +16,43 @@ export interface BCRData {
 }
 
 async function getBCRData(): Promise<BCRData | null> {
-  try {
-    const tradingDate = getValidTradingDate();
-    const response = await fetch(
-      `https://fiordanirenzi.com.ar/api_pizarra_rosario.php?fecha=${tradingDate}`,
-      {
-        next: { revalidate: 3600 }, // Revalidate every hour
+  let currentDate = getValidTradingDate();
+  let attempts = 0;
+  const maxAttempts = 10; // Try up to 10 previous business days
+
+  while (attempts < maxAttempts) {
+    try {
+      const response = await fetch(
+        `https://fiordanirenzi.com.ar/api_pizarra_rosario.php?fecha=${currentDate}`,
+        {
+          next: { revalidate: 3600 }, // Revalidate every hour
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch BCR data");
       }
-    );
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch BCR data");
+      const data = await response.json();
+
+      // Check if we have valid data (tabla_json should have content)
+      if (data && data.tabla_json && data.tabla_json.length > 2) {
+        return data;
+      }
+
+      // No data for this date, try previous business day
+      currentDate = getPreviousBusinessDay(currentDate);
+      attempts++;
+    } catch (error) {
+      console.error(`Error fetching BCR data for ${currentDate}:`, error);
+      // Try previous business day
+      currentDate = getPreviousBusinessDay(currentDate);
+      attempts++;
     }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching BCR data:", error);
-    return null;
   }
+
+  console.error("Could not find BCR data after checking multiple dates");
+  return null;
 }
 
 /**
@@ -42,7 +61,9 @@ async function getBCRData(): Promise<BCRData | null> {
 const Cotizaciones = async ({ slice }: CotizacionesProps) => {
   const bcrData = await getBCRData();
 
-  const tradingDate = getValidTradingDate();
+  // Use the actual date from the data, or fallback to a valid trading date
+  const dateString = bcrData?.fecha_solicitada || getValidTradingDate();
+  const displayDate = formatDate(dateString);
 
   return (
     <section
@@ -61,7 +82,7 @@ const Cotizaciones = async ({ slice }: CotizacionesProps) => {
             subtitle_bcr={slice.primary.subtitle_bcr}
             bg_bcr={slice.primary.bg_bcr}
             bcrData={bcrData}
-            today={tradingDate}
+            today={displayDate}
           />
           <CotizacionesBottomCards
             text_prices={slice.primary.text_prices}

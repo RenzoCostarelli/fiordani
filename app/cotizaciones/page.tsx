@@ -1,4 +1,4 @@
-import { getValidTradingDate } from "@/lib/utils";
+import { getValidTradingDate, getPreviousBusinessDay, formatDate } from "@/lib/utils";
 
 export interface BCRData {
   fecha_solicitada: string;
@@ -11,55 +11,92 @@ export interface PreciosData {
 }
 
 async function getBCRData(): Promise<BCRData | null> {
-  try {
-    const tradingDate = getValidTradingDate();
-    const response = await fetch(
-      `https://fiordanirenzi.com.ar/api_pizarra_rosario.php?fecha=${tradingDate}`,
-      {
-        next: { revalidate: 3600 }, // Revalidate every hour
+  let currentDate = getValidTradingDate();
+  let attempts = 0;
+  const maxAttempts = 10; // Try up to 10 previous business days
+
+  while (attempts < maxAttempts) {
+    try {
+      const response = await fetch(
+        `https://fiordanirenzi.com.ar/api_pizarra_rosario.php?fecha=${currentDate}`,
+        {
+          next: { revalidate: 3600 }, // Revalidate every hour
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch BCR data");
       }
-    );
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch BCR data");
+      const data = await response.json();
+
+      // Check if we have valid data (tabla_json should have content)
+      if (data && data.tabla_json && data.tabla_json.length > 2) {
+        return data;
+      }
+
+      // No data for this date, try previous business day
+      currentDate = getPreviousBusinessDay(currentDate);
+      attempts++;
+    } catch (error) {
+      console.error(`Error fetching BCR data for ${currentDate}:`, error);
+      // Try previous business day
+      currentDate = getPreviousBusinessDay(currentDate);
+      attempts++;
     }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching BCR data:", error);
-    return null;
   }
+
+  console.error("Could not find BCR data after checking multiple dates");
+  return null;
 }
 
 async function getPrecios(): Promise<PreciosData | null> {
-  try {
-    const tradingDate = getValidTradingDate();
-    const response = await fetch(
-      `https://fiordanirenzi.com.ar/api_pizarra.php?fecha=${tradingDate}`,
-      {
-        next: { revalidate: 3600 }, // Revalidate every hour
+  let currentDate = getValidTradingDate();
+  let attempts = 0;
+  const maxAttempts = 10; // Try up to 10 previous business days
+
+  while (attempts < maxAttempts) {
+    try {
+      const response = await fetch(
+        `https://fiordanirenzi.com.ar/api_pizarra.php?fecha=${currentDate}`,
+        {
+          next: { revalidate: 3600 }, // Revalidate every hour
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch precios");
       }
-    );
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch precios");
+      const data = await response.json();
+
+      // Check if we have valid data (tabla_json should have content)
+      if (data && data.tabla_json && data.tabla_json.length > 1) {
+        return data;
+      }
+
+      // No data for this date, try previous business day
+      currentDate = getPreviousBusinessDay(currentDate);
+      attempts++;
+    } catch (error) {
+      console.error(`Error fetching precios for ${currentDate}:`, error);
+      // Try previous business day
+      currentDate = getPreviousBusinessDay(currentDate);
+      attempts++;
     }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching precios:", error);
-    return null;
   }
+
+  console.error("Could not find precios data after checking multiple dates");
+  return null;
 }
 
 export default async function CotizacionesPage() {
   const bcrData = await getBCRData();
   const preciosData = await getPrecios();
-  const today = new Date().toLocaleDateString("es-AR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
+
+  // Format dates from the actual data (dd/mm/yyyy)
+  const bcrDate = bcrData?.fecha_solicitada ? formatDate(bcrData.fecha_solicitada) : "N/A";
+  const preciosDate = preciosData?.fecha_solicitada ? formatDate(preciosData.fecha_solicitada) : "N/A";
 
   return (
     <section className="pt-32 pb-16 bg-white min-h-screen">
@@ -91,7 +128,7 @@ export default async function CotizacionesPage() {
               {bcrData && bcrData.tabla_json ? (
                 <div className="w-full h-full overflow-auto p-4">
                   <p className="font-semibold mb-2 text-sm">
-                    BOLSA DE COMERCIO DE ROSARIO - FECHA {today}
+                    BOLSA DE COMERCIO DE ROSARIO - FECHA {bcrDate}
                   </p>
                   <table className="w-full text-sm">
                     <thead>
@@ -164,7 +201,7 @@ export default async function CotizacionesPage() {
               {preciosData && preciosData.tabla_json ? (
                 <div className="w-full h-full overflow-auto p-4">
                   <p className="font-semibold mb-2 text-sm">
-                    FIORDANI RENZI - FECHA {today}
+                    FIORDANI RENZI - FECHA {preciosDate}
                   </p>
                   <table className="w-full text-sm">
                     <thead>
