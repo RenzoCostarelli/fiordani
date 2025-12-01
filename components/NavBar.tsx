@@ -17,35 +17,35 @@ const MENU_ITEMS = [
 export default function NavBar() {
   const navRef = useRef(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const showNav = gsap
-        .from(navRef.current, {
-          yPercent: -100,
-          duration: 0.4,
-          ease: "power2.inOut",
-          paused: true,
-        })
-        .progress(1);
+  // useEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     const showNav = gsap
+  //       .from(navRef.current, {
+  //         yPercent: -100,
+  //         duration: 0.4,
+  //         ease: "power2.inOut",
+  //         paused: true,
+  //       })
+  //       .progress(1);
 
-      ScrollTrigger.create({
-        start: "top -50%",
-        end: "max",
-        // markers: true,
-        onUpdate: (self) => {
-          if (self.direction === -1) {
-            showNav.play();
-          } else {
-            showNav.reverse();
-          }
-        },
-      });
-    });
+  //     ScrollTrigger.create({
+  //       start: "top -50%",
+  //       end: "max",
+  //       markers: true,
+  //       onUpdate: (self) => {
+  //         if (self.direction === -1) {
+  //           showNav.play();
+  //         } else {
+  //           showNav.reverse();
+  //         }
+  //       },
+  //     });
+  //   });
 
-    return () => {
-      ctx.kill();
-    };
-  }, []);
+  //   return () => {
+  //     ctx.kill();
+  //   };
+  // }, []);
   return (
     <div
       className="fixed w-full top-0 bg-emerald-600/50 backdrop-blur-sm py-3 z-50"
