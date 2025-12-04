@@ -59,6 +59,38 @@ declare module "react-open-weather" {
     options: UseOpenWeatherOptions
   ): UseOpenWeatherResult;
 
+  export interface UseVisualCrossingOptions {
+    key: string;
+    lat: string;
+    lon: string;
+    lang: string;
+    unit: "metric" | "us" | "uk";
+  }
+
+  export function useVisualCrossing(
+    options: UseVisualCrossingOptions
+  ): UseOpenWeatherResult;
+
+  export interface WeatherTheme {
+    fontFamily?: string;
+    gradientStart?: string;
+    gradientMid?: string;
+    gradientEnd?: string;
+    locationFontColor?: string;
+    todayTempFontColor?: string;
+    todayDateFontColor?: string;
+    todayRangeFontColor?: string;
+    todayDescFontColor?: string;
+    todayInfoFontColor?: string;
+    todayIconColor?: string;
+    forecastBackgroundColor?: string;
+    forecastSeparatorColor?: string;
+    forecastDateColor?: string;
+    forecastDescColor?: string;
+    forecastRangeColor?: string;
+    forecastIconColor?: string;
+  }
+
   export interface ReactWeatherProps {
     isLoading: boolean;
     errorMessage: string | null;
@@ -70,6 +102,7 @@ declare module "react-open-weather" {
       windSpeed: string;
     };
     showForecast?: boolean;
+    theme?: WeatherTheme;
   }
 
   export default function ReactWeather(props: ReactWeatherProps): JSX.Element;

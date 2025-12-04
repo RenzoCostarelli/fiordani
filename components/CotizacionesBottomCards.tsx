@@ -119,7 +119,7 @@ export default function CotizacionesBottomCards({
         </div>
       </div> */}
       <div
-        className="col-span-4 bg-linear-to-br from-blue-400 to-blue-600 rounded-xl h-[300px] relative overflow-hidden p-4"
+        className="col-span-4 flex bg-linear-to-br from-blue-400 to-blue-600 rounded-xl h-[300px] relative overflow-hidden"
         data-card
       >
         <WeatherWidget />
