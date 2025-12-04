@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function WeatherWidget() {
   const { data, isLoading, errorMessage } = useOpenWeather({
-    key: process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY || "",
+    key: process.env.OPENWEATHER_API || "",
     lat: "-34.6037",
     lon: "-58.3816",
     lang: "es",
