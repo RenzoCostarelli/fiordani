@@ -74,7 +74,7 @@ const Slider: FC<SliderProps> = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="w-full overflow-hidden h-[85svh] md:h-[65svh] relative"
+      className="w-full overflow-hidden h-[50svh] md:h-[65svh] relative"
     >
       {slides && slides.length > 0 && (
         <>
@@ -109,7 +109,7 @@ const Slider: FC<SliderProps> = ({ slice }) => {
             {slides.map((slide, index) => (
               <SwiperSlide
                 key={index}
-                className="relative grid place-content-center md:p-0 px-4"
+                className="relative grid place-content-center md:p-0 px-6"
               >
                 <PrismicNextImage
                   className="w-full h-full object-cover object-center absolute inset-0"
@@ -120,7 +120,7 @@ const Slider: FC<SliderProps> = ({ slice }) => {
                   ref={(el) => {
                     textRefs.current[index] = el;
                   }}
-                  className="container mx-auto relative z-50 text-4xl md:text-6xl text-white font-thin opacity-0 drop-shadow-xl drop-shadow-black"
+                  className="container mx-auto relative z-50 text-3xl md:text-6xl text-white font-thin opacity-0 drop-shadow-xl drop-shadow-black"
                 >
                   <PrismicRichText field={slide.title} />
                 </div>
