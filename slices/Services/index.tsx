@@ -22,13 +22,13 @@ const Services: FC<ServicesProps> = ({ slice }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
+  const serviceTitleRef = useRef<HTMLDivElement>(null);
   const services = slice.primary.services;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-service-card]");
-      const header = titleRef.current;
+      const header = serviceTitleRef.current;
       const wrapper = sectionRef.current;
 
       if (!cards.length || !header || !wrapper) return;
@@ -64,7 +64,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
 
       ScrollTrigger.create({
         trigger: wrapper,
-        start: "top top",
+        start: `top -=${header.offsetHeight}`,
         pin: true,
         end: () => `+=${cards.length * cardHeight + header.offsetHeight}`,
         scrub: true,
@@ -92,7 +92,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
         className="container mx-auto relative py-16 md:px-0 px-4"
         ref={containerRef}
       >
-        <div className="mb-4 md:max-w-4xl text-balance" ref={titleRef}>
+        <div className="mb-4 md:max-w-4xl text-balance" ref={serviceTitleRef}>
           <ServicesTitle
             title={"SOLUCIONES INTEGRALES PARA CADA ETAPA DEL CAMPO."}
             text={

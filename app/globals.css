@@ -25,3 +25,22 @@ body {
   color: var(--foreground);
   font-family: var(--font-montserrat);
 }
+
+/* Custom Swiper Pagination Bullets */
+.custom-bullet {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem !important;
+  background-color: #49614e;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 4px;
+}
+
+.custom-bullet.swiper-pagination-bullet-active {
+  opacity: 1;
+  width: 2rem;
+  background-color: #49614e;
+}

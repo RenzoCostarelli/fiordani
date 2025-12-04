@@ -74,7 +74,13 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={0}
             slidesPerView={1.1}
-            navigation={true}
+            pagination={{
+              clickable: true,
+              el: ".custom-pagination",
+              renderBullet: function (index, className) {
+                return `<span class="${className} custom-bullet"></span>`;
+              },
+            }}
             breakpoints={{
               768: {
                 slidesPerView: 1.5,
@@ -137,6 +143,7 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
                 </SwiperSlide>
               ))}
           </Swiper>
+          <div className="custom-pagination flex justify-center items-center mt-6"></div>
         </div>
       </div>
     </section>

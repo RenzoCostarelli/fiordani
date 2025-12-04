@@ -2,7 +2,7 @@
 import { SITE_URL } from "@/lib/constants";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import LogoSvg from "./Logo";
 import LogoText from "./LogoText";
 gsap.registerPlugin(ScrollTrigger);
@@ -18,41 +18,54 @@ const MENU_ITEMS = [
 export default function NavBar() {
   const navRef = useRef(null);
 
-  // useEffect(() => {
-  //   const ctx = gsap.context(() => {
-  //     const showNav = gsap
-  //       .from(navRef.current, {
-  //         yPercent: -100,
-  //         duration: 0.4,
-  //         ease: "power2.inOut",
-  //         paused: true,
-  //       })
-  //       .progress(1);
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const navTl = gsap.timeline({ paused: true }).to(navRef.current, {
+        backgroundColor: "rgba(1, 92, 80, 0.5)",
+        duration: 0.4,
+        ease: "power2.inOut",
+      });
 
-  //     ScrollTrigger.create({
-  //       start: "top -50%",
-  //       end: "max",
-  //       markers: true,
-  //       onUpdate: (self) => {
-  //         if (self.direction === -1) {
-  //           showNav.play();
-  //         } else {
-  //           showNav.reverse();
-  //         }
-  //       },
-  //     });
-  //   });
+      ScrollTrigger.create({
+        start: "top -50%",
+        end: "top -40%",
+        animation: navTl,
+        scrub: true,
+        // markers: true,
+      });
+      const showNav = gsap
+        .from(navRef.current, {
+          yPercent: -100,
+          duration: 0.4,
+          ease: "power2.inOut",
+          paused: true,
+        })
+        .progress(1);
 
-  //   return () => {
-  //     ctx.kill();
-  //   };
-  // }, []);
+      ScrollTrigger.create({
+        start: "top -50%",
+        end: "max",
+        // markers: true,
+        onUpdate: (self) => {
+          if (self.direction === -1) {
+            showNav.play();
+          } else {
+            showNav.reverse();
+          }
+        },
+      });
+    }, navRef);
+
+    return () => {
+      ctx.kill();
+    };
+  }, []);
   return (
     <div
-      className="fixed w-full top-0 bg-[#015C50] backdrop-blur-sm py-3 z-50"
+      className="fixed w-full top-0 bg-[#015c50] backdrop-blur-sm py-3 z-50 "
       ref={navRef}
     >
-      <div className="flex justify-between w-[1200px] mx-auto items-center">
+      <div className="flex justify-between container mx-auto items-center">
         <div className="relative flex items-center gap-2">
           <div className="w-10">
             <LogoSvg />

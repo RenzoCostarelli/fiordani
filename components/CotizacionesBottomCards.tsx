@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useEffect, useState } from "react";
 import ArrowButton from "./ui/ArrowButton";
+import WeatherWidget from "./WeatherWidget";
 
 // Register GSAP plugin
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -121,11 +122,7 @@ export default function CotizacionesBottomCards({
         className="col-span-4 bg-linear-to-br from-blue-400 to-blue-600 rounded-xl h-[300px] relative overflow-hidden p-4"
         data-card
       >
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `<div id="ww_1a34e7a320ee2" v='1.3' loc='id' a='{"t":"horizontal","lang":"es","sl_lpl":1,"ids":["wl6215"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","el_whr":3}'>Más previsiones: <a href="https://tiempolargo.com/buenos_aires_tiempo_25_dias/" id="ww_1a34e7a320ee2_u" target="_blank">Pronóstico extendido 25 días caba</a></div><script async src="https://app3.weatherwidget.org/js/?id=ww_1a34e7a320ee2"></script>`,
-          }}
-        />
+        <WeatherWidget />
       </div>
       <div
         className="col-span-3 bg-[#a5b4aa] rounded-xl h-[300px] relative overflow-hidden py-4 text-white"
