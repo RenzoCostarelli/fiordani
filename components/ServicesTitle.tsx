@@ -18,30 +18,19 @@ export default function ServicesTitle({ title, text }: TitleProps) {
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (titleRef.current && textRef.current) {
-        const splitTitle = new SplitText(titleRef.current, {
-          type: "chars",
-        });
-        const titleChars = splitTitle.chars;
-
-        const splitText = new SplitText(textRef.current, {
-          type: "words",
-        });
-
         const tl = gsap
           .timeline({ paused: true })
-          .from(titleChars, {
+          .from(titleRef.current, {
             opacity: 0,
-            y: 50,
-            stagger: 0.05,
+            x: -50,
             duration: 0.8,
             ease: "power3.out",
           })
           .from(
-            splitText.words,
+            textRef.current,
             {
               opacity: 0,
-              y: 20,
-              stagger: 0.05,
+              x: -20,
               duration: 0.6,
               ease: "power3.out",
             },
@@ -60,14 +49,14 @@ export default function ServicesTitle({ title, text }: TitleProps) {
 
   return (
     <>
-      <div ref={titleRef}>
-        <h2 className="text-black text-5xl font-serif">
+      <div ref={titleRef} className="md:max-w-xl">
+        <h2 className="text-black text-3xl font-serif">
           {title}
           {/* Servicios */}
         </h2>
       </div>
       <div ref={textRef}>
-        <p className="text-2xl font-light">
+        <p className="text-xl font-light">
           {text}
           {/* Nos ocupamos de todo el proceso de producción de granos. */}
         </p>

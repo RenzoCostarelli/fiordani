@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useRef } from "react";
-import LogoSvg from "./Logo";
+import { SITE_URL } from "@/lib/constants";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SITE_URL } from "@/lib/constants";
+import { useRef } from "react";
+import LogoSvg from "./Logo";
+import LogoText from "./LogoText";
 gsap.registerPlugin(ScrollTrigger);
 
 const MENU_ITEMS = [
@@ -48,12 +49,17 @@ export default function NavBar() {
   // }, []);
   return (
     <div
-      className="fixed w-full top-0 bg-emerald-600/50 backdrop-blur-sm py-3 z-50"
+      className="fixed w-full top-0 bg-[#015C50] backdrop-blur-sm py-3 z-50"
       ref={navRef}
     >
       <div className="flex justify-between w-[1200px] mx-auto items-center">
-        <div className="relative w-12">
-          <LogoSvg />
+        <div className="relative flex items-center gap-2">
+          <div className="w-10">
+            <LogoSvg />
+          </div>
+          <div className="text-white w-40">
+            <LogoText />
+          </div>
         </div>
         <div className="border border-white rounded-full px-1 py-1 flex gap-1">
           {MENU_ITEMS.map((item, index) => (

@@ -92,7 +92,7 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
             {/* First set of logos */}
             {logos.map((logo, index) => (
               <div key={`logo-1-${index}`} className="shrink-0 px-8">
-                <div className="h-80 w-80">
+                <div className="h-60 w-60">
                   <PrismicNextImage
                     field={logo.logo}
                     alt=""
@@ -104,7 +104,7 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
             {/* Duplicate set for seamless loop */}
             {logos.map((logo, index) => (
               <div key={`logo-2-${index}`} className="shrink-0 px-8">
-                <div className="h-80 w-80">
+                <div className="h-60 w-60">
                   <PrismicNextImage
                     field={logo.logo}
                     alt=""

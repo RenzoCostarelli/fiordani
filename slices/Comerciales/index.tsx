@@ -74,6 +74,7 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={0}
             slidesPerView={1.1}
+            navigation={true}
             breakpoints={{
               768: {
                 slidesPerView: 1.5,

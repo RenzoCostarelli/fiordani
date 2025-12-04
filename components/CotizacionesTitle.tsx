@@ -22,19 +22,19 @@ export default function CotizacionesTitle({ title, text }: TitleProps) {
     const ctx = gsap.context(() => {
       if (titleRef.current && textRef.current) {
         const splitTitle = new SplitText(titleRef.current, {
-          type: "chars",
+          type: "chars, words",
         });
-        const titleChars = splitTitle.chars;
+        const titleChars = splitTitle.words;
 
         const splitText = new SplitText(textRef.current, {
           type: "words",
         });
 
         const tl = gsap
-          .timeline({ paused: true })
+          .timeline({ delay: 1 })
           .from(titleChars, {
             opacity: 0,
-            y: 50,
+            x: -50,
             stagger: 0.05,
             duration: 0.8,
             ease: "power3.out",
@@ -43,19 +43,12 @@ export default function CotizacionesTitle({ title, text }: TitleProps) {
             splitText.words,
             {
               opacity: 0,
-              y: 20,
-              stagger: 0.05,
+              x: -20,
               duration: 0.6,
               ease: "power3.out",
             },
             "-=0.75"
           );
-
-        ScrollTrigger.create({
-          trigger: titleRef.current,
-          start: "top 65%",
-          animation: tl,
-        });
       }
     }, titleRef);
     return () => ctx.revert();

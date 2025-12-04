@@ -1,6 +1,5 @@
 "use client";
 import { ImageField, KeyTextField } from "@prismicio/client";
-import { PrismicNextImage } from "@prismicio/next";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -91,7 +90,7 @@ export default function CotizacionesBottomCards({
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
       <div
-        className="col-span-4 place-content-end bg-[#48604d] p-6 rounded-xl h-[300px] relative text-white"
+        className="col-span-5 place-content-end bg-[#48604d] p-6 rounded-xl h-[300px] relative text-white"
         data-card
       >
         <div className="text-2xl font-serif">{title_prices}</div>
@@ -101,7 +100,7 @@ export default function CotizacionesBottomCards({
           <ArrowButton href="/cotizaciones#promedios" />
         </div>
       </div>
-      <div
+      {/* <div
         className="col-span-4 p-6 bg-red-300 place-content-end rounded-xl h-[300px] relative overflow-hidden"
         data-card
       >
@@ -117,9 +116,9 @@ export default function CotizacionesBottomCards({
             <ArrowButton href="/cotizaciones" />
           </div>
         </div>
-      </div>
+      </div> */}
       <div
-        className="col-span-2 bg-linear-to-br from-blue-400 to-blue-600 rounded-xl h-[300px] relative overflow-hidden p-4"
+        className="col-span-4 bg-linear-to-br from-blue-400 to-blue-600 rounded-xl h-[300px] relative overflow-hidden p-4"
         data-card
       >
         <div
@@ -129,7 +128,7 @@ export default function CotizacionesBottomCards({
         />
       </div>
       <div
-        className="col-span-2 bg-[#a5b4aa] rounded-xl h-[300px] relative overflow-hidden py-4 text-white"
+        className="col-span-3 bg-[#a5b4aa] rounded-xl h-[300px] relative overflow-hidden py-4 text-white"
         data-card
       >
         {loading ? (

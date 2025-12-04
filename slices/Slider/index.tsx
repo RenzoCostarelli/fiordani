@@ -31,6 +31,22 @@ const Slider: FC<SliderProps> = ({ slice }) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  const transitionStart = (element: HTMLElement) => {
+    const split = new SplitText(element, {
+      type: "chars,words",
+      charsClass: "char",
+      wordsClass: "word",
+    });
+
+    gsap.set(element, { opacity: 0 });
+
+    gsap.to(split.words, {
+      opacity: 0,
+      x: -50,
+      stagger: 0.05,
+    });
+  };
+
   const animateText = (element: HTMLElement) => {
     const split = new SplitText(element, {
       type: "chars,words",
@@ -40,22 +56,11 @@ const Slider: FC<SliderProps> = ({ slice }) => {
 
     gsap.set(element, { opacity: 1 });
 
-    gsap.fromTo(
-      split.chars,
-      {
-        opacity: 0,
-        y: 50,
-        rotationX: -90,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        rotationX: 0,
-        duration: 0.8,
-        stagger: 0.02,
-        ease: "power3.out",
-      }
-    );
+    gsap.from(split.words, {
+      opacity: 0,
+      x: -50,
+      stagger: 0.05,
+    });
   };
 
   useEffect(() => {
@@ -87,6 +92,12 @@ const Slider: FC<SliderProps> = ({ slice }) => {
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
+            // onSlideChangeTransitionStart={(swiper) => {
+            //   const realIndex = swiper.activeIndex;
+            //   if (textRefs.current[realIndex]) {
+            //     transitionStart(textRefs.current[realIndex]!);
+            //   }
+            // }}
             onSlideChangeTransitionEnd={(swiper) => {
               const realIndex = swiper.realIndex;
               if (textRefs.current[realIndex]) {

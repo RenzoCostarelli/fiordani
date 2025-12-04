@@ -6,7 +6,6 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { Scroll } from "lucide-react";
 import { FC, useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -21,83 +20,59 @@ export type ServicesProps = SliceComponentProps<Content.ServicesSlice>;
  */
 const Services: FC<ServicesProps> = ({ slice }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const services = slice.primary.services;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".card");
+      const cards = gsap.utils.toArray<HTMLElement>("[data-card]");
+      const header = titleRef.current;
+      const wrapper = sectionRef.current;
 
-      // cards.forEach((card, index) => {
-      //   const totalCards = cards.length;
-      //   const cardHeight = card.offsetHeight;
+      if (!cards.length || !header || !wrapper) return;
 
-      //   const tl = gsap.timeline({ paused: true }).to(card, {
-      //     y: -cardHeight,
-      //     ease: "none",
-      //   });
+      const animation = gsap.timeline();
+      let cardHeight: number;
 
-      //   ScrollTrigger.create({
-      //     trigger: card,
-      //     start: "top +=200",
-      //     end: `+=${cardHeight * (totalCards - index)}`,
-      //     pin: true,
-      //     animation: tl,
-      //     pinSpacing: false,
-      //     // markers: true,
-      //     scrub: true,
-      //   });
-      // });
+      function initCards() {
+        animation.clear();
+        cardHeight = cards[0].offsetHeight;
 
-      // ScrollTrigger.create({
-      //   trigger: sectionRef.current,
-      //   start: "top top",
-      //   end: sectionRef.current!.offsetHeight!,
-      //   pin: true,
-      //   pinSpacing: false,
-      //   markers: true,
-      //   scrub: true,
-      // });
+        cards.forEach((card, index) => {
+          if (index > 0) {
+            // Increment y value of each card by cardHeight
+            gsap.set(card, { y: index * cardHeight });
+            // Animate each card back to 0 (for stacking)
+            animation.to(
+              card,
+              { y: 0, duration: index * 0.5, ease: "none" },
+              0
+            );
+          }
+        });
+      }
+
+      initCards();
+
+      ScrollTrigger.create({
+        trigger: wrapper,
+        start: "top top",
+        pin: true,
+        end: () => `+=${cards.length * cardHeight + header.offsetHeight}`,
+        scrub: true,
+        animation: animation,
+        invalidateOnRefresh: true,
+      });
+
+      ScrollTrigger.addEventListener("refreshInit", initCards);
     }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
-  // useEffect(() => {
-  //   const ctx = gsap.context(() => {
-  //     const cards = gsap.utils.toArray<HTMLElement>(".card");
-
-  //     ScrollTrigger.create({
-  //       trigger: titleRef.current,
-  //       start: "top +=100",
-  //       end: sectionRef.current!.offsetHeight!,
-  //       pin: true,
-  //       pinSpacing: false,
-  //       // markers: true,
-  //       scrub: true,
-  //     });
-  //     if (cards.length === 0) return;
-
-  //     cards.forEach((card, index) => {
-  //       // Calculate the scroll distance needed for all cards to stack
-  //       // Each card needs to travel to stack on top of the previous one
-  //       const totalCards = cards.length;
-  //       const cardHeight = card.offsetHeight;
-
-  //       ScrollTrigger.create({
-  //         trigger: card,
-  //         start: "top +=200",
-  //         end: `+=${cardHeight * (totalCards - index)}`,
-  //         pin: true,
-  //         pinSpacing: false,
-  //         // markers: true,
-  //         scrub: true,
-  //       });
-  //     });
-  //   }, containerRef);
-
-  //   return () => ctx.revert();
-  // }, []);
+    return () => {
+      ctx.revert();
+    };
+  }, [services]);
 
   return (
     <section
@@ -111,41 +86,48 @@ const Services: FC<ServicesProps> = ({ slice }) => {
         className="container mx-auto relative py-16 md:px-0 px-4"
         ref={containerRef}
       >
-        <div className="mb-0" ref={titleRef}>
+        <div className="mb-4 md:max-w-4xl text-balance" ref={titleRef}>
           <ServicesTitle
-            title={"Servicios"}
-            text={"Nos ocupamos de todo el proceso de producción de granos."}
+            title={"SOLUCIONES INTEGRALES PARA CADA ETAPA DEL CAMPO."}
+            text={
+              "De la siembra a la cosecha, pasando por fertilización, pulverización y transporte: en cada paso te acompañamos con tecnología, experiencia y asesoramiento."
+            }
           />
         </div>
-        {services?.map((service, index) => (
-          <div
-            key={index}
-            className={`p-6 mb-4 h-[65svh] text-white rounded-2xl card `}
-            style={{
-              backgroundColor: service.bg_color || undefined,
-            }}
-            data-card
-          >
-            <div className="absolute w-full h-full inset-0 ">
-              <PrismicNextImage
-                className="w-full h-full object-cover object-center rounded-2xl"
-                field={service.image}
-                alt=""
-              />
-            </div>
-            <div className="relative ">
-              <h3
-                className="text-5xl font-serif tracking-wider"
-                data-cart-title
-              >
-                {service.title}
-              </h3>
-              <div className="text-3xl font-thin">
-                <PrismicRichText field={service.text} />
+        <div className="relative h-[60svh]" ref={cardsContainerRef}>
+          {services?.map((service, index) => (
+            // Services card
+            <div
+              key={index}
+              className={`p-6 mb-4 h-full w-full absolute text-white rounded-2xl overflow-hidden`}
+              style={{
+                backgroundColor: service.bg_color || undefined,
+              }}
+              data-card
+            >
+              <div className="absolute w-full h-full inset-0 ">
+                <PrismicNextImage
+                  className="w-full h-full object-cover object-center rounded-2xl"
+                  field={service.image}
+                  alt=""
+                />
+              </div>
+              {/* Gradient */}
+              <div className="absolute w-full h-full inset-0 bg-linear-to-r from-black/20 to-transparent"></div>
+              <div className="relative h-full">
+                <h3
+                  className="text-2xl font-serif tracking-wider"
+                  data-cart-title
+                >
+                  {service.title}
+                </h3>
+                <div className="text-xl font-light text-shadow-2xs place-conotent-center h-full self-center flex flex-1 items-center max-w-[80%]">
+                  <PrismicRichText field={service.text} />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* <div className="h-svh"></div> */}
