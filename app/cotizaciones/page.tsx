@@ -114,62 +114,68 @@ export default async function CotizacionesPage() {
           {/* BCR Card */}
           <div
             id="precios"
-            className="bg-amber-100 rounded-3xl h-80 w-full grid grid-cols-7 gap-2 px-4 py-4 relative overflow-hidden"
+            className="bg-gradient-to-br from-slate-700 to-slate-900 rounded-3xl w-full p-4 md:p-6 relative overflow-hidden flex flex-col"
           >
-            <div className="absolute w-full h-full inset-0 object-cover overflow-hidden bg-linear-to-br from-slate-700 to-slate-900"></div>
-            <div className="col-span-1 place-content-end text-white relative w-max z-10">
+            {/* Title and Description - Top Section */}
+            <div className="text-white relative z-10 mb-4">
               <div className="flex flex-col gap-1">
-                <h3 className="text-2xl font-serif">Precios BCR</h3>
-                <div className="h-0 border-b bg-white w-full"></div>
-                <p className="text-sm">Cotización diaria</p>
+                <h3 className="text-xl md:text-2xl font-serif">Precios BCR</h3>
+                <div className="h-0 border-b bg-white w-full max-w-xs"></div>
+                <p className="text-xs md:text-sm">Cotización diaria</p>
               </div>
             </div>
-            <div className="col-span-6 relative flex items-center bg-white h-full rounded-r-xl overflow-hidden z-10">
+
+            {/* Table - Bottom Section with Scroll */}
+            <div className="relative flex-1 bg-white rounded-xl overflow-hidden z-10 min-h-[300px] md:min-h-[400px]">
               {bcrData && bcrData.tabla_json ? (
-                <div className="w-full h-full overflow-auto p-4">
-                  <p className="font-semibold mb-2 text-sm">
-                    BOLSA DE COMERCIO DE ROSARIO - FECHA {bcrDate}
-                  </p>
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-[#002f2f] text-white">
-                        <th className="px-3 py-2 text-left font-medium text-xs">
-                          Fecha Neg.
-                        </th>
-                        <th className="px-3 py-2 text-left font-medium text-xs">
-                          Trading date
-                        </th>
-                        {bcrData.tabla_json[1]?.slice(2).map((date, idx) => (
-                          <th
-                            key={idx}
-                            className="px-3 py-2 text-center font-medium text-xs"
-                          >
-                            {date}
+                <div className="w-full h-full flex flex-col">
+                  <div className="p-3 md:p-4 border-b bg-gray-50">
+                    <p className="font-semibold text-xs md:text-sm">
+                      BOLSA DE COMERCIO DE ROSARIO - FECHA {bcrDate}
+                    </p>
+                  </div>
+                  <div className="flex-1 overflow-y-auto p-3 md:p-4">
+                    <table className="w-full text-sm">
+                      <thead className="sticky top-0 bg-[#002f2f] z-10">
+                        <tr className="text-white">
+                          <th className="px-2 md:px-3 py-2 text-left font-medium text-xs whitespace-nowrap">
+                            Fecha Neg.
                           </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {bcrData.tabla_json.slice(2).map((row, rowIdx) => (
-                        <tr key={rowIdx} className="border-b">
-                          <td className="px-3 py-2 font-medium text-gray-800 text-xs">
-                            {row[0]}
-                          </td>
-                          <td className="px-3 py-2 text-gray-600 text-xs">
-                            {row[1]}
-                          </td>
-                          {row.slice(2).map((value, cellIdx) => (
-                            <td
-                              key={cellIdx}
-                              className="px-3 py-2 text-center text-gray-800 text-xs"
+                          <th className="px-2 md:px-3 py-2 text-left font-medium text-xs whitespace-nowrap">
+                            Trading date
+                          </th>
+                          {bcrData.tabla_json[1]?.slice(2).map((date, idx) => (
+                            <th
+                              key={idx}
+                              className="px-2 md:px-3 py-2 text-center font-medium text-xs whitespace-nowrap"
                             >
-                              {value}
-                            </td>
+                              {date}
+                            </th>
                           ))}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {bcrData.tabla_json.slice(2).map((row, rowIdx) => (
+                          <tr key={rowIdx} className="border-b hover:bg-gray-50">
+                            <td className="px-2 md:px-3 py-2 font-medium text-gray-800 text-xs whitespace-nowrap">
+                              {row[0]}
+                            </td>
+                            <td className="px-2 md:px-3 py-2 text-gray-600 text-xs whitespace-nowrap">
+                              {row[1]}
+                            </td>
+                            {row.slice(2).map((value, cellIdx) => (
+                              <td
+                                key={cellIdx}
+                                className="px-2 md:px-3 py-2 text-center text-gray-800 text-xs whitespace-nowrap"
+                              >
+                                {value}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-500">
@@ -182,59 +188,63 @@ export default async function CotizacionesPage() {
           {/* Fiordani Renzi Card */}
           <div
             id="promedios"
-            className="bg-[#41614b] rounded-3xl h-80 w-full grid grid-cols-7 gap-4 px-4 py-4 relative overflow-hidden"
+            className="bg-[#41614b] rounded-3xl w-full p-4 md:p-6 relative overflow-hidden flex flex-col"
           >
-            <div className="absolute w-full h-full inset-0 object-cover overflow-hidden">
-              {/* IMAGEN FONDO */}
-            </div>
-            <div className="col-span-1 place-content-end text-white relative w-max z-10">
+            {/* Title and Description - Top Section */}
+            <div className="text-white relative z-10 mb-4">
               <div className="flex flex-col gap-1">
-                <h3 className="text-2xl font-serif">Precios</h3>
-                <h3 className="text-2xl font-serif">Fiordani Renzi</h3>
-                <div className="h-0 border-b bg-white w-full"></div>
-                <p className="text-sm">Cotización diaria</p>
-                <p className="text-sm">Fiordani Renzi</p>
-                <p className="text-sm">Cereales S.A.</p>
+                <h3 className="text-xl md:text-2xl font-serif">Precios</h3>
+                <h3 className="text-xl md:text-2xl font-serif">Fiordani Renzi</h3>
+                <div className="h-0 border-b bg-white w-full max-w-xs"></div>
+                <p className="text-xs md:text-sm">Cotización diaria</p>
+                <p className="text-xs md:text-sm">Fiordani Renzi</p>
+                <p className="text-xs md:text-sm">Cereales S.A.</p>
               </div>
             </div>
-            <div className="col-span-6 relative flex items-center bg-white h-full rounded-r-xl overflow-hidden z-10">
+
+            {/* Table - Bottom Section with Scroll */}
+            <div className="relative flex-1 bg-white rounded-xl overflow-hidden z-10 min-h-[300px] md:min-h-[400px]">
               {preciosData && preciosData.tabla_json ? (
-                <div className="w-full h-full overflow-auto p-4">
-                  <p className="font-semibold mb-2 text-sm">
-                    FIORDANI RENZI - FECHA {preciosDate}
-                  </p>
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-[#48604d] text-white">
-                        {preciosData.tabla_json[0]?.map((header, idx) => (
-                          <th
-                            key={idx}
-                            className="px-3 py-2 text-left font-medium text-xs"
-                          >
-                            {header}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {preciosData.tabla_json.slice(1).map((row, rowIdx) => (
-                        <tr key={rowIdx} className="border-b">
-                          {row.map((cell, cellIdx) => (
-                            <td
-                              key={cellIdx}
-                              className={`px-3 py-2 text-xs ${
-                                cellIdx === 0
-                                  ? "font-medium text-gray-800"
-                                  : "text-gray-600"
-                              }`}
+                <div className="w-full h-full flex flex-col">
+                  <div className="p-3 md:p-4 border-b bg-gray-50">
+                    <p className="font-semibold text-xs md:text-sm">
+                      FIORDANI RENZI - FECHA {preciosDate}
+                    </p>
+                  </div>
+                  <div className="flex-1 overflow-y-auto p-3 md:p-4">
+                    <table className="w-full text-sm">
+                      <thead className="sticky top-0 bg-[#48604d] z-10">
+                        <tr className="text-white">
+                          {preciosData.tabla_json[0]?.map((header, idx) => (
+                            <th
+                              key={idx}
+                              className="px-2 md:px-3 py-2 text-left font-medium text-xs whitespace-nowrap"
                             >
-                              {cell}
-                            </td>
+                              {header}
+                            </th>
                           ))}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {preciosData.tabla_json.slice(1).map((row, rowIdx) => (
+                          <tr key={rowIdx} className="border-b hover:bg-gray-50">
+                            {row.map((cell, cellIdx) => (
+                              <td
+                                key={cellIdx}
+                                className={`px-2 md:px-3 py-2 text-xs whitespace-nowrap ${
+                                  cellIdx === 0
+                                    ? "font-medium text-gray-800"
+                                    : "text-gray-600"
+                                }`}
+                              >
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-500">
