@@ -91,7 +91,7 @@ export default function CotizacionesBottomCards({
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
       <div
-        className="col-span-5 place-content-end bg-[#48604d] p-6 rounded-xl h-[300px] relative text-white"
+        className="col-span-1 md:col-span-5 place-content-end bg-[#48604d] p-6 rounded-xl h-[300px] relative text-white"
         data-card
       >
         <div className="text-2xl font-serif">{title_prices}</div>
@@ -119,13 +119,13 @@ export default function CotizacionesBottomCards({
         </div>
       </div> */}
       <div
-        className="col-span-4 flex bg-linear-to-br from-blue-400 to-blue-600 rounded-xl h-[300px] relative overflow-hidden"
+        className="col-span-1 md:col-span-4 flex bg-linear-to-br from-blue-400 to-blue-600 rounded-xl h-[300px] relative overflow-hidden"
         data-card
       >
         <WeatherWidget />
       </div>
       <div
-        className="col-span-3 bg-[#a5b4aa] rounded-xl h-[300px] relative overflow-hidden py-4 text-white"
+        className="col-span-1 md:col-span-3 bg-[#a5b4aa] rounded-xl h-[300px] relative overflow-hidden py-4 text-white"
         data-card
       >
         {loading ? (

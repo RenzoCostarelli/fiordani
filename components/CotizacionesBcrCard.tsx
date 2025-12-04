@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useEffect, useRef } from "react";
+import ArrowButton from "./ui/ArrowButton";
 
 // Register GSAP plugin
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -53,14 +54,19 @@ export default function CotizacionesBcrCard({
       <div className="absolute w-full h-full inset-0 object-cover overflow-hidden [&>img]:w-full [&>img]:h-full [&>img]:inset-0 [&>img]:object-cover">
         <PrismicNextImage field={bg_bcr} alt="" />
       </div>
-      <div className="col-span-1 place-content-end text-white relative w-max">
+      <div className="md:col-span-1 place-content-end col-span-7 text-white relative w-full md:w-max">
         <div className="flex flex-col gap-1">
           <h3 className="text-2xl font-serif">{title_bcr}</h3>
-          <div className="h-0 border-b bg-white w-full"></div>
-          <p>{subtitle_bcr}</p>
+          <div className="h-[0.5px] bg-linear-to-r from-white to-white/10 w-full"></div>
+          <div className="flex items-end justify-between w-full">
+            <p>{subtitle_bcr}</p>
+            <div className="block md:hidden">
+              <ArrowButton href="/cotizaciones" />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="col-span-6 relative flex items-center bg-white h-full rounded-r-xl overflow-hidden">
+      <div className="col-span-6 relative items-center bg-white h-full rounded-r-xl overflow-hidden md:flex hidden">
         {bcrData && bcrData.tabla_json ? (
           <div className="w-full h-full overflow-auto p-4">
             <p>BOLSA DE COMERCIO DE ROSARIO - FECHA {today}</p>
