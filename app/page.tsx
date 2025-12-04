@@ -8,7 +8,7 @@ export default async function Home() {
 
   return (
     <div>
-      <main>
+      <main className="overflow-hidden">
         <SliceZone
           slices={page.results[0].data.slices}
           components={components}

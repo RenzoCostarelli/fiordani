@@ -27,7 +27,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>("[data-card]");
+      const cards = gsap.utils.toArray<HTMLElement>("[data-service-card]");
       const header = titleRef.current;
       const wrapper = sectionRef.current;
 
@@ -40,14 +40,20 @@ const Services: FC<ServicesProps> = ({ slice }) => {
         animation.clear();
         cardHeight = cards[0].offsetHeight;
 
+        // Get the title height from the first card
+        const firstTitle = cards[0].querySelector(
+          "[data-service-card-title]"
+        ) as HTMLElement;
+        const titleHeight = firstTitle ? firstTitle.offsetHeight * 2 : 0;
+
         cards.forEach((card, index) => {
           if (index > 0) {
-            // Increment y value of each card by cardHeight
+            // Offset each card by titleHeight to show stacked titles
             gsap.set(card, { y: index * cardHeight });
             // Animate each card back to 0 (for stacking)
             animation.to(
               card,
-              { y: 0, duration: index * 0.5, ease: "none" },
+              { y: index * titleHeight, duration: index * 0.5, ease: "none" },
               0
             );
           }
@@ -78,7 +84,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="min-h-svh"
+      className="min-h-svh mb-64"
       ref={sectionRef}
       id="servicios"
     >
@@ -103,9 +109,9 @@ const Services: FC<ServicesProps> = ({ slice }) => {
               style={{
                 backgroundColor: service.bg_color || undefined,
               }}
-              data-card
+              data-service-card
             >
-              <div className="absolute w-full h-full inset-0 ">
+              <div className="absolute w-full h-full inset-0">
                 <PrismicNextImage
                   className="w-full h-full object-cover object-center rounded-2xl"
                   field={service.image}
@@ -117,7 +123,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
               <div className="relative h-full">
                 <h3
                   className="text-2xl font-serif tracking-wider"
-                  data-cart-title
+                  data-service-card-title
                 >
                   {service.title}
                 </h3>
