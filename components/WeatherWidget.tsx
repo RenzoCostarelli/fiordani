@@ -24,8 +24,8 @@ const customStyles = {
 export default function WeatherWidget() {
   const { data, isLoading, errorMessage } = useVisualCrossing({
     key: process.env.NEXT_PUBLIC_VISUALCROSSING_API_KEY || "",
-    lat: "-34.6037",
-    lon: "-58.3816",
+    lat: "-33.39858754531226",
+    lon: "-61.843514186505374",
     lang: "es",
     unit: "metric",
   });

@@ -109,7 +109,7 @@ const Slider: FC<SliderProps> = ({ slice }) => {
             {slides.map((slide, index) => (
               <SwiperSlide
                 key={index}
-                className="relative grid place-content-center"
+                className="relative grid place-content-center md:p-0 px-4"
               >
                 <PrismicNextImage
                   className="w-full h-full object-cover object-center absolute inset-0"
