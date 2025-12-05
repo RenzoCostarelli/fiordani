@@ -95,7 +95,7 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
             {comerciales &&
               comerciales.map((comercial) => (
                 <SwiperSlide data-slide key={comercial.name}>
-                  <div className="h-[400px] bg-[#49614e] rounded-3xl relative overflow-hidden p-4 shadow-3xl mx-2 group/main">
+                  <div className="h-[450px] md:h-[400px] bg-[#49614e] rounded-3xl relative overflow-hidden p-4 shadow-3xl mx-2 group/main">
                     {/* bg */}
                     <div className="absolute w-full h-full inset-0 group-hover/main:scale-105 transition-transform duration-500">
                       <PrismicNextImage
@@ -113,7 +113,7 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
                             className="h-full object-center object-cover"
                           />
                         </div>
-                        <div className="bg-white h-full p-3 flex flex-col justify-between">
+                        <div className="bg-white h-full p-3 text-sm md:text-base flex flex-col justify-between">
                           <div>
                             <p className="font-light uppercase">
                               {comercial.name}

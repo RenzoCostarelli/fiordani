@@ -45,8 +45,9 @@ const Services: FC<ServicesProps> = ({ slice }) => {
         const firstTitle = cards[0].querySelector(
           "[data-service-card-title]"
         ) as HTMLElement;
+        const multiplier = isMobile ? 1 : 2;
         const titleHeight =
-          firstTitle || !isMobile ? firstTitle.offsetHeight * 2 : 0;
+          firstTitle || !isMobile ? firstTitle.offsetHeight * multiplier : 0;
 
         cards.forEach((card, index) => {
           if (index > 0) {
@@ -129,7 +130,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
                 >
                   {service.title}
                 </h3>
-                <div className="md:text-xl text-shadow-2xs place-conotent-center h-full self-center flex flex-col items-start justify-center flex-1 max-w-[80%]">
+                <div className="md:text-xl text-shadow-2xs place-conotent-center h-full self-center flex flex-col items-start justify-center flex-1 md:max-w-[80%]">
                   <PrismicRichText field={service.text} />
                 </div>
               </div>
