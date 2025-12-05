@@ -83,7 +83,7 @@ const Distribuidores: FC<DistribuidoresProps> = ({ slice }) => {
         <div className="w-full text-3xl md:text-4xl text-center font-serif">
           <PrismicRichText field={title} />
         </div>
-        <div className="w-full text-xl text-center">
+        <div className="w-full text-xl text-center md:px-0 px-6">
           <PrismicRichText field={subtitle} />
         </div>
         <div className="mt-8 overflow-hidden relative">

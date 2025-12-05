@@ -11,6 +11,7 @@ export const components = {
   formulario_contacto_page: dynamic(() => import("./FormularioContactoPage")),
   hero_contact: dynamic(() => import("./HeroContact")),
   hero_services: dynamic(() => import("./HeroServices")),
+  productos: dynamic(() => import("./Productos")),
   services: dynamic(() => import("./Services")),
   servicios: dynamic(() => import("./Servicios")),
   slider: dynamic(() => import("./Slider")),

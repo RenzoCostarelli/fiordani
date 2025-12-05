@@ -138,6 +138,7 @@ export type ContactoDocument<Lang extends string = string> =
   >;
 
 type HomeDocumentDataSlicesSlice =
+  | ProductosSlice
   | ServicesSlice
   | ContactoSlice
   | ComercialesSlice
@@ -967,6 +968,71 @@ export type HeroServicesSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *Productos → Default → Primary*
+ */
+export interface ProductosSliceDefaultPrimary {
+  /**
+   * Imagen field in *Productos → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: productos.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Titulo field in *Productos → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: productos.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Texto field in *Productos → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: productos.default.primary.text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Productos Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProductosSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ProductosSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Productos*
+ */
+type ProductosSliceVariation = ProductosSliceDefault;
+
+/**
+ * Productos Shared Slice
+ *
+ * - **API ID**: `productos`
+ * - **Description**: Productos
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProductosSlice = prismic.SharedSlice<
+  "productos",
+  ProductosSliceVariation
+>;
+
+/**
  * Item in *Services → Default → Primary → Servicios*
  */
 export interface ServicesSliceDefaultPrimaryServicesItem {
@@ -1283,6 +1349,10 @@ declare module "@prismicio/client" {
       HeroServicesSliceDefaultPrimary,
       HeroServicesSliceVariation,
       HeroServicesSliceDefault,
+      ProductosSlice,
+      ProductosSliceDefaultPrimary,
+      ProductosSliceVariation,
+      ProductosSliceDefault,
       ServicesSlice,
       ServicesSliceDefaultPrimaryServicesItem,
       ServicesSliceDefaultPrimary,

@@ -9,8 +9,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const MENU_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Servicios", href: `${SITE_URL}/#servicios` },
   { label: "Cotizaciones", href: "/cotizaciones" },
+  { label: "Servicios", href: `${SITE_URL}/#servicios` },
+  { label: "Productos", href: `${SITE_URL}/#productos` },
   { label: "Distribuidores", href: `${SITE_URL}/#distribuidores` },
   { label: "Contacto", href: "/contacto" },
 ];
@@ -92,7 +93,7 @@ export default function NavBar() {
 
         {/* Desktop Right Section */}
         <div className="hidden lg:flex text-white font-bold items-center gap-8">
-          <div className="flex text-sm items-center gap-2">
+          <div className="flex text-xs items-center gap-2">
             <span>INGRESO CLIENTES</span>
             <div className="border-2 rounded-full aspect-square flex items-center">
               <svg
@@ -235,7 +236,10 @@ export default function NavBar() {
 
           {/* Mobile Social Icons */}
           <div className="flex items-center justify-center gap-6 pb-2">
-            <a href="#" className="text-white hover:text-white/80 transition-colors">
+            <a
+              href="#"
+              className="text-white hover:text-white/80 transition-colors"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
@@ -248,7 +252,10 @@ export default function NavBar() {
                 />
               </svg>
             </a>
-            <a href="#" className="text-white hover:text-white/80 transition-colors">
+            <a
+              href="#"
+              className="text-white hover:text-white/80 transition-colors"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"

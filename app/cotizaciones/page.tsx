@@ -1,5 +1,9 @@
-import { getValidTradingDate, getPreviousBusinessDay, formatDate } from "@/lib/utils";
-
+import {
+  getValidTradingDate,
+  getPreviousBusinessDay,
+  formatDate,
+} from "@/lib/utils";
+import Image from "next/image";
 export interface BCRData {
   fecha_solicitada: string;
   tabla_json: string[][];
@@ -95,8 +99,12 @@ export default async function CotizacionesPage() {
   const preciosData = await getPrecios();
 
   // Format dates from the actual data (dd/mm/yyyy)
-  const bcrDate = bcrData?.fecha_solicitada ? formatDate(bcrData.fecha_solicitada) : "N/A";
-  const preciosDate = preciosData?.fecha_solicitada ? formatDate(preciosData.fecha_solicitada) : "N/A";
+  const bcrDate = bcrData?.fecha_solicitada
+    ? formatDate(bcrData.fecha_solicitada)
+    : "N/A";
+  const preciosDate = preciosData?.fecha_solicitada
+    ? formatDate(preciosData.fecha_solicitada)
+    : "N/A";
 
   return (
     <section className="pt-32 pb-16 bg-white min-h-screen">
@@ -114,8 +122,19 @@ export default async function CotizacionesPage() {
           {/* BCR Card */}
           <div
             id="precios"
-            className="bg-gradient-to-br from-slate-700 to-slate-900 rounded-3xl w-full p-4 md:p-6 relative overflow-hidden flex flex-col"
+            className="bg-linear-to-br from-slate-700 to-slate-900 rounded-3xl w-full p-4 md:p-6 relative overflow-hidden flex md:flex-row flex-col md:items-end md:gap-6"
           >
+            <div className="absolute w-full h-full inset-0">
+              <Image
+                src={
+                  "https://res.cloudinary.com/dkgnaegp9/image/upload/v1764944355/financiali_yzrleh.jpg"
+                }
+                width={1200}
+                height={686}
+                className="w-full h-full object-cover"
+                alt=""
+              />
+            </div>
             {/* Title and Description - Top Section */}
             <div className="text-white relative z-10 mb-4">
               <div className="flex flex-col gap-1">
@@ -126,7 +145,7 @@ export default async function CotizacionesPage() {
             </div>
 
             {/* Table - Bottom Section with Scroll */}
-            <div className="relative flex-1 bg-white rounded-xl overflow-hidden z-10 min-h-[300px] md:min-h-[400px]">
+            <div className="relative flex-1 bg-white rounded-xl overflow-hidden z-10 ">
               {bcrData && bcrData.tabla_json ? (
                 <div className="w-full h-full flex flex-col">
                   <div className="p-3 md:p-4 border-b bg-gray-50">
@@ -156,7 +175,10 @@ export default async function CotizacionesPage() {
                       </thead>
                       <tbody>
                         {bcrData.tabla_json.slice(2).map((row, rowIdx) => (
-                          <tr key={rowIdx} className="border-b hover:bg-gray-50">
+                          <tr
+                            key={rowIdx}
+                            className="border-b hover:bg-gray-50"
+                          >
                             <td className="px-2 md:px-3 py-2 font-medium text-gray-800 text-xs whitespace-nowrap">
                               {row[0]}
                             </td>
@@ -188,13 +210,15 @@ export default async function CotizacionesPage() {
           {/* Fiordani Renzi Card */}
           <div
             id="promedios"
-            className="bg-[#41614b] rounded-3xl w-full p-4 md:p-6 relative overflow-hidden flex flex-col"
+            className="bg-[#41614b] rounded-3xl w-full p-4 md:p-6 relative overflow-hidden flex md:flex-row md:items-end md:gap-6 flex-col"
           >
             {/* Title and Description - Top Section */}
             <div className="text-white relative z-10 mb-4">
               <div className="flex flex-col gap-1">
                 <h3 className="text-xl md:text-2xl font-serif">Precios</h3>
-                <h3 className="text-xl md:text-2xl font-serif">Fiordani Renzi</h3>
+                <h3 className="text-xl md:text-2xl font-serif">
+                  Fiordani Renzi
+                </h3>
                 <div className="h-0 border-b bg-white w-full max-w-xs"></div>
                 <p className="text-xs md:text-sm">Cotización diaria</p>
                 <p className="text-xs md:text-sm">Fiordani Renzi</p>
@@ -203,7 +227,7 @@ export default async function CotizacionesPage() {
             </div>
 
             {/* Table - Bottom Section with Scroll */}
-            <div className="relative flex-1 bg-white rounded-xl overflow-hidden z-10 min-h-[300px] md:min-h-[400px]">
+            <div className="relative flex-1 bg-white rounded-xl overflow-hidden z-10">
               {preciosData && preciosData.tabla_json ? (
                 <div className="w-full h-full flex flex-col">
                   <div className="p-3 md:p-4 border-b bg-gray-50">
@@ -227,7 +251,10 @@ export default async function CotizacionesPage() {
                       </thead>
                       <tbody>
                         {preciosData.tabla_json.slice(1).map((row, rowIdx) => (
-                          <tr key={rowIdx} className="border-b hover:bg-gray-50">
+                          <tr
+                            key={rowIdx}
+                            className="border-b hover:bg-gray-50"
+                          >
                             {row.map((cell, cellIdx) => (
                               <td
                                 key={cellIdx}
