@@ -24,6 +24,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const serviceTitleRef = useRef<HTMLDivElement>(null);
   const services = slice.primary.services;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -44,7 +45,8 @@ const Services: FC<ServicesProps> = ({ slice }) => {
         const firstTitle = cards[0].querySelector(
           "[data-service-card-title]"
         ) as HTMLElement;
-        const titleHeight = firstTitle ? firstTitle.offsetHeight * 2 : 0;
+        const titleHeight =
+          firstTitle || !isMobile ? firstTitle.offsetHeight * 2 : 0;
 
         cards.forEach((card, index) => {
           if (index > 0) {
@@ -78,7 +80,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
     return () => {
       ctx.revert();
     };
-  }, [services]);
+  }, [services, isMobile]);
 
   return (
     <section
@@ -122,12 +124,12 @@ const Services: FC<ServicesProps> = ({ slice }) => {
               <div className="absolute w-full h-full inset-0 bg-linear-to-r from-black/20 to-transparent"></div>
               <div className="relative h-full">
                 <h3
-                  className="text-2xl font-serif tracking-wider"
+                  className="text-xl md:text-2xl font-serif tracking-wider"
                   data-service-card-title
                 >
                   {service.title}
                 </h3>
-                <div className="text-xl font-light text-shadow-2xs place-conotent-center h-full self-center flex flex-1 items-center max-w-[80%]">
+                <div className="md:text-xl font-light text-shadow-2xs place-conotent-center h-full self-center flex flex-1 items-center max-w-[80%]">
                   <PrismicRichText field={service.text} />
                 </div>
               </div>

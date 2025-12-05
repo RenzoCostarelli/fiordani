@@ -94,7 +94,15 @@ export default function ContactConsultas({
               {/* Right side - Map placeholder */}
               <div className="w-full h-[200px] bg-[#49614e] rounded-lg relative">
                 <div className="absolute inset-0 flex items-center justify-center text-white text-2xl font-serif">
-                  Mapa
+                  <iframe
+                    id="idmaps"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5601.907081597465!2d-61.84964523849389!3d-33.39941094753097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95c845784eaf9bf9%3A0x2cd382ae417793a9!2sFiordani+Renzi+Cereales+S.A!5e0!3m2!1ses!2sar!4v1562775156630!5m2!1ses!2sar"
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    className="border-0"
+                    allowFullScreen={true}
+                  ></iframe>
                 </div>
               </div>
             </div>

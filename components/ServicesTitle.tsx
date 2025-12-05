@@ -50,16 +50,12 @@ export default function ServicesTitle({ title, text }: TitleProps) {
   return (
     <>
       <div ref={titleRef} className="md:max-w-xl">
-        <h2 className="text-[#49604E] text-3xl font-serif">
+        <h2 className="text-[#49604E] text-xl md:text-3xl font-serif">
           {title}
-          {/* Servicios */}
         </h2>
       </div>
       <div ref={textRef}>
-        <p className="text-[#49604E] text-xl font-light">
-          {text}
-          {/* Nos ocupamos de todo el proceso de producción de granos. */}
-        </p>
+        <p className="text-[#49604E] md:text-xl font-light">{text}</p>
       </div>
     </>
   );

@@ -7,9 +7,19 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useEffect, useRef } from "react";
 import ArrowButton from "./ui/ArrowButton";
+import Image from "next/image";
 
 // Register GSAP plugin
 gsap.registerPlugin(SplitText, ScrollTrigger);
+
+// Icon mapping for products
+const productIcons: { [key: string]: string } = {
+  Soja: "/icons/soja.svg",
+  Sorgo: "/icons/sorgo.svg",
+  Girasol: "/icons/girasol.svg",
+  Trigo: "/icons/trigo.svg",
+  Maíz: "/icons/maíz.svg",
+};
 
 interface CotizacionesBcrCardProps {
   bg_bcr: ImageField;
@@ -48,7 +58,7 @@ export default function CotizacionesBcrCard({
   }, []);
   return (
     <div
-      className="bg-amber-100 rounded-3xl h-80 w-full grid grid-cols-7 gap-2 px-4 py-4 relative overflow-hidden"
+      className="bg-amber-100 rounded-3xl  w-full grid grid-cols-7 gap-2 px-4 py-4 relative overflow-hidden"
       ref={cardRef}
     >
       <div className="absolute w-full h-full inset-0 object-cover overflow-hidden [&>img]:w-full [&>img]:h-full [&>img]:inset-0 [&>img]:object-cover">
@@ -76,6 +86,7 @@ export default function CotizacionesBcrCard({
                   <th className="px-3 py-2 text-left font-medium">
                     Fecha Neg.
                   </th>
+                  <th className="px-3 py-2 text-center font-medium w-12"></th>
                   <th className="px-3 py-2 text-left font-medium">
                     Trading date
                   </th>
@@ -87,22 +98,37 @@ export default function CotizacionesBcrCard({
                 </tr>
               </thead>
               <tbody>
-                {bcrData.tabla_json.slice(2).map((row, rowIdx) => (
-                  <tr key={rowIdx} className={"border-b-3"}>
-                    <td className=" py-2 font-medium text-gray-800">
-                      {row[0]}
-                    </td>
-                    <td className="px-3 py-2 text-gray-600">{row[1]}</td>
-                    {row.slice(2).map((value, cellIdx) => (
-                      <td
-                        key={cellIdx}
-                        className="px-3 py-2 text-center text-gray-800"
-                      >
-                        {value}
+                {bcrData.tabla_json.slice(2).map((row, rowIdx) => {
+                  const productName = row[0] as string;
+                  const iconPath = productIcons[productName];
+                  return (
+                    <tr key={rowIdx} className={"border-b-3"}>
+                      <td className=" py-2 font-medium text-gray-800">
+                        {row[0]}
                       </td>
-                    ))}
-                  </tr>
-                ))}
+                      <td className="px-3 py-2 text-center">
+                        {iconPath && (
+                          <Image
+                            src={iconPath}
+                            alt={productName}
+                            width={24}
+                            height={24}
+                            className="inline-block"
+                          />
+                        )}
+                      </td>
+                      <td className="px-3 py-2 text-gray-600">{row[1]}</td>
+                      {row.slice(2).map((value, cellIdx) => (
+                        <td
+                          key={cellIdx}
+                          className="px-3 py-2 text-center text-gray-800"
+                        >
+                          {value}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

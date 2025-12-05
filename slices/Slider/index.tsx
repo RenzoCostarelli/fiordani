@@ -31,22 +31,6 @@ const Slider: FC<SliderProps> = ({ slice }) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const transitionStart = (element: HTMLElement) => {
-    const split = new SplitText(element, {
-      type: "chars,words",
-      charsClass: "char",
-      wordsClass: "word",
-    });
-
-    gsap.set(element, { opacity: 0 });
-
-    gsap.to(split.words, {
-      opacity: 0,
-      x: -50,
-      stagger: 0.05,
-    });
-  };
-
   const animateText = (element: HTMLElement) => {
     const split = new SplitText(element, {
       type: "chars,words",
