@@ -80,7 +80,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
     return () => {
       ctx.revert();
     };
-  }, [services]);
+  }, [services, isMobile]);
 
   return (
     <section

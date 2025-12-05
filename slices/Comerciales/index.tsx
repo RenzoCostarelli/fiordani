@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,8 +12,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { PrismicNextImage } from "@prismicio/next";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import WhatsappIcon from "@/components/ui/WhatsappIcon";
+import { ImageField } from "@prismicio/client";
 
 /**
  * Props for `Comerciales`.
@@ -25,6 +26,7 @@ export type ComercialesProps = SliceComponentProps<Content.ComercialesSlice>;
  */
 const Comerciales: FC<ComercialesProps> = ({ slice }) => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [selectedImage, setSelectedImage] = useState<ImageField | null>(null);
 
   const comerciales = slice.primary.comerciales;
 
@@ -130,6 +132,7 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
                           <button
                             className="flex items-center font-light gap-2 text-[#41614b] group cursor-pointer"
                             role="button"
+                            onClick={() => setSelectedImage(comercial.zone)}
                           >
                             Ampliar Zona
                             <span className="text-white rounded-full bg-[#41614b] p-1 group-hover:translate-x-1.5 transition-transform">
@@ -146,6 +149,34 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
           <div className="custom-pagination flex justify-center items-center mt-6"></div>
         </div>
       </div>
+
+      {/* Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-6xl max-h-[90vh] w-full">
+            <button
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Cerrar modal"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <div
+              className="relative w-full h-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <PrismicNextImage
+                field={selectedImage}
+                className="w-full h-full object-contain rounded-lg"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

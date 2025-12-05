@@ -101,8 +101,6 @@ export default function CotizacionesBcrCard({
                 {bcrData.tabla_json.slice(2).map((row, rowIdx) => {
                   const productName = row[0] as string;
                   const iconPath = productIcons[productName];
-                  console.log(productName);
-
                   return (
                     <tr key={rowIdx} className={"border-b-3"}>
                       <td className=" py-2 font-medium text-gray-800">
