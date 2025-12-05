@@ -4,6 +4,16 @@ import {
   formatDate,
 } from "@/lib/utils";
 import Image from "next/image";
+
+// Icon mapping for products
+const productIcons: { [key: string]: string } = {
+  Soja: "/icons/soja.svg",
+  Sorgo: "/icons/sorgo.svg",
+  Girasol: "/icons/girasol.svg",
+  Trigo: "/icons/trigo.svg",
+  Maíz: "/icons/maíz.svg",
+};
+
 export interface BCRData {
   fecha_solicitada: string;
   tabla_json: string[][];
@@ -122,7 +132,7 @@ export default async function CotizacionesPage() {
           {/* BCR Card */}
           <div
             id="precios"
-            className="bg-linear-to-br from-slate-700 to-slate-900 rounded-3xl w-full p-4 md:p-6 relative overflow-hidden flex md:flex-row flex-col md:items-end md:gap-6"
+            className="bg-linear-to-br from-slate-700 to-slate-900 rounded-3xl w-full p-4 relative overflow-hidden flex md:flex-row flex-col md:items-end md:gap-6"
           >
             <div className="absolute w-full h-full inset-0">
               <Image
@@ -160,6 +170,7 @@ export default async function CotizacionesPage() {
                           <th className="px-2 md:px-3 py-2 text-left font-medium text-xs whitespace-nowrap">
                             Fecha Neg.
                           </th>
+                          <th className="px-2 md:px-3 py-2 text-center font-medium w-12"></th>
                           <th className="px-2 md:px-3 py-2 text-left font-medium text-xs whitespace-nowrap">
                             Trading date
                           </th>
@@ -174,27 +185,43 @@ export default async function CotizacionesPage() {
                         </tr>
                       </thead>
                       <tbody>
-                        {bcrData.tabla_json.slice(2).map((row, rowIdx) => (
-                          <tr
-                            key={rowIdx}
-                            className="border-b hover:bg-gray-50"
-                          >
-                            <td className="px-2 md:px-3 py-2 font-medium text-gray-800 text-xs whitespace-nowrap">
-                              {row[0]}
-                            </td>
-                            <td className="px-2 md:px-3 py-2 text-gray-600 text-xs whitespace-nowrap">
-                              {row[1]}
-                            </td>
-                            {row.slice(2).map((value, cellIdx) => (
-                              <td
-                                key={cellIdx}
-                                className="px-2 md:px-3 py-2 text-center text-gray-800 text-xs whitespace-nowrap"
-                              >
-                                {value}
+                        {bcrData.tabla_json.slice(2).map((row, rowIdx) => {
+                          const productName = row[0] as string;
+                          const iconPath = productIcons[productName];
+
+                          return (
+                            <tr
+                              key={rowIdx}
+                              className="border-b hover:bg-gray-50"
+                            >
+                              <td className="px-2 md:px-3 py-2 font-medium text-gray-800 text-xs whitespace-nowrap">
+                                {row[0]}
                               </td>
-                            ))}
-                          </tr>
-                        ))}
+                              <td className="px-2 md:px-3 py-2 text-center">
+                                {iconPath && (
+                                  <Image
+                                    src={iconPath}
+                                    alt={productName}
+                                    width={24}
+                                    height={24}
+                                    className="inline-block"
+                                  />
+                                )}
+                              </td>
+                              <td className="px-2 md:px-3 py-2 text-gray-600 text-xs whitespace-nowrap">
+                                {row[1]}
+                              </td>
+                              {row.slice(2).map((value, cellIdx) => (
+                                <td
+                                  key={cellIdx}
+                                  className="px-2 md:px-3 py-2 text-center text-gray-800 text-xs whitespace-nowrap"
+                                >
+                                  {value}
+                                </td>
+                              ))}
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -210,7 +237,7 @@ export default async function CotizacionesPage() {
           {/* Fiordani Renzi Card */}
           <div
             id="promedios"
-            className="bg-[#41614b] rounded-3xl w-full p-4 md:p-6 relative overflow-hidden flex md:flex-row md:items-end md:gap-6 flex-col"
+            className="bg-[#41614b] rounded-3xl w-full p-4 relative overflow-hidden flex md:flex-row md:items-end md:gap-6 flex-col"
           >
             {/* Title and Description - Top Section */}
             <div className="text-white relative z-10 mb-4">
