@@ -25,19 +25,19 @@ export default function NavBar() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const navTl = gsap.timeline({ paused: true }).to(navRef.current, {
-        backgroundColor: "rgba(1, 92, 80, 0.5)",
-        duration: 0.4,
-        ease: "power2.inOut",
-      });
+      // const navTl = gsap.timeline({ paused: true }).to(navRef.current, {
+      //   backgroundColor: "rgba(1, 92, 80, 0.5)",
+      //   duration: 0.4,
+      //   ease: "power2.inOut",
+      // });
 
-      ScrollTrigger.create({
-        start: "top -50%",
-        end: "top -40%",
-        animation: navTl,
-        scrub: true,
-        // markers: true,
-      });
+      // ScrollTrigger.create({
+      //   start: "top -50%",
+      //   end: "top -40%",
+      //   animation: navTl,
+      //   scrub: true,
+      //   // markers: true,
+      // });
       const showNav = gsap
         .from(navRef.current, {
           yPercent: -100,
@@ -67,7 +67,7 @@ export default function NavBar() {
   }, []);
   return (
     <div
-      className="fixed w-full top-0 bg-[#015c50] backdrop-blur-sm py-3 z-50 "
+      className="fixed w-full top-0 bg-[#015c50]/50 backdrop-blur-sm py-3 z-50 "
       ref={navRef}
     >
       <div className="flex justify-between container mx-auto items-center px-4">
