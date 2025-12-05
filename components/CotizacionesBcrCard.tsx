@@ -58,7 +58,7 @@ export default function CotizacionesBcrCard({
   }, []);
   return (
     <div
-      className="bg-amber-100 rounded-3xl  w-full grid grid-cols-7 gap-2 px-4 py-4 relative overflow-hidden"
+      className="bg-amber-100 rounded-3xl md:h-auto h-[300px] w-full grid grid-cols-7 gap-2 px-4 py-4 relative overflow-hidden"
       ref={cardRef}
     >
       <div className="absolute w-full h-full inset-0 object-cover overflow-hidden [&>img]:w-full [&>img]:h-full [&>img]:inset-0 [&>img]:object-cover">
