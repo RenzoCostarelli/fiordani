@@ -23,7 +23,7 @@ const gloock = Gloock({
 });
 
 export const metadata: Metadata = {
-  title: "Fiordani Renzi S.A. ",
+  title: "Fiordani Renzi S.A.",
   description: "Fiordani Renzi Cereales S.A. - Gödeken - Santa Fe - Argentina",
 };
 
