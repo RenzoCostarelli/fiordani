@@ -70,7 +70,7 @@ export default function NavBar() {
       className="fixed w-full top-0 bg-[#015c50]/50 backdrop-blur-sm py-3 z-50 "
       ref={navRef}
     >
-      <div className="flex justify-between container mx-auto items-center px-4">
+      <div className="flex justify-between container mx-auto items-center px-0">
         {/* Logo */}
         <div className="relative flex items-center gap-2">
           <div className="w-10">

@@ -8,53 +8,53 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#41614b] py-8 w-full">
+    <footer className="bg-[#41614b] py-5 w-full">
       <div className="flex flex-col md:flex-row justify-between container mx-auto items-center">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 ">
-          <div className="relative w-12">
+          <div className="relative w-10">
             <LogoSvg />
           </div>
           <div className="flex flex-col gap-2 text-white">
-            <div className="flex flex-col md:flex-row  items-center font-light gap-5">
+            <div className="flex flex-col md:flex-row items-center font-light text-sm gap-5">
               <p>info@fiordanirenzi.com.ar</p>
               <div className="flex items-center gap-2">
                 <Link
                   href="https://web.whatsapp.com/send?phone=543465666129&text=Hola!,%20Tengo%20una%20consulta%20sobre..."
-                  className="w-6 h-6"
+                  className="w-4 h-4"
                 >
                   <WhatsappIcon />
                 </Link>
                 <Link
                   href="https://www.instagram.com/fiordanirenzicereales"
                   target="_blank"
-                  className="w-6 h-6"
+                  className="w-4 h-4"
                 >
                   <InstagramIcon />
                 </Link>
                 <Link
                   href="https://www.youtube.com/results?search_query=fiordani+renzi+cereales"
                   target="_blank"
-                  className="w-6 h-6"
+                  className="w-4 h-4"
                 >
                   <YoutubeIcon />
                 </Link>
                 <Link
                   href="https://www.facebook.com/fiordanirenzicerealessa"
                   target="_blank"
-                  className="w-6 h-6"
+                  className="w-4 h-4"
                 >
                   <FacebookIcon />
                 </Link>
               </div>
             </div>
             <div>
-              <p className="font-light text-sm text-center md:text-left">
+              <p className="font-light text-xs text-center md:text-left">
                 COPYRIGHT 2025 / TODOS LOS DERECHOS RESERVADOS
               </p>
             </div>
           </div>
         </div>
-        <div className="w-74 mt-8 md:mt-0">
+        <div className="w-60 mt-8 md:mt-0">
           <Image
             src={"/ampersand_logo.svg"}
             alt="Ampersand Group Logo"

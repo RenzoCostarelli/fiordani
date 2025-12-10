@@ -516,7 +516,7 @@ export interface ContactoEmailsSliceDefaultPrimaryEmailItem {
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   area: prismic.SelectField<
-    | "ADMINISTRACION"
+    | "ADMINISTRACION, CONTABILIDAD Y FINANZAS"
     | "FINANZAS"
     | "CONTABLE E IMPOSITIVA"
     | "GRANOS"
