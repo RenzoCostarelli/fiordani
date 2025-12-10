@@ -122,7 +122,7 @@ const Services: FC<ServicesProps> = ({ slice }) => {
                 />
               </div>
               {/* Gradient */}
-              <div className="absolute w-full h-full inset-0 bg-linear-to-r from-black/20 to-transparent"></div>
+              <div className="absolute w-full h-full inset-0 bg-linear-to-r from-black/50 to-transparent"></div>
               <div className="relative h-full">
                 <h3
                   className="text-xl md:text-2xl font-serif tracking-wider"
