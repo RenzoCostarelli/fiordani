@@ -34,7 +34,7 @@ export default function ContactConsultas({
           <div className="text-[#49614e]">
             <div className="space-y-6">
               {Object.entries(groupedEmails)
-                .slice(0, 4)
+                .slice(0, 3)
                 .map(([area, emails]) => (
                   <div key={area}>
                     <h3 className="uppercase mb-2">{area}</h3>
@@ -52,7 +52,7 @@ export default function ContactConsultas({
           <div className="text-[#49614e]">
             <div className="space-y-6 mt-16 md:mt-0">
               {Object.entries(groupedEmails)
-                .slice(4, 9)
+                .slice(3, 9)
                 .map(([area, emails]) => (
                   <div key={area}>
                     <h3 className="uppercase mb-2">{area}</h3>

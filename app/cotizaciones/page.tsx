@@ -124,7 +124,7 @@ export default async function CotizacionesPage() {
             Cotizaciones
           </h1>
           <p className="text-2xl font-light text-gray-600">
-            Precios de granos al instante y datos históricos fiables.
+            Precios de granos al instante y datos históricos.
           </p>
         </div>
 

@@ -30,7 +30,7 @@ const Contacto: FC<ContactoProps> = ({ slice }) => {
             </ul>
           </div>
         </div>
-        <div className="flex gap-4 md:col-start-5 2xl:col-start-6 2xl:col-end-10 col-end-12">
+        <div className="flex gap-4 md:col-start-6 xl:col-start-5 2xl:col-start-6 2xl:col-end-10 col-end-12">
           <ContactForm />
         </div>
       </div>
