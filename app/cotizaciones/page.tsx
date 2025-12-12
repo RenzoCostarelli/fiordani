@@ -5,6 +5,7 @@ import {
 } from "@/lib/utils";
 import BCRPricesCard from "@/components/BCRPricesCard";
 import FiordaniRenziPricesCard from "@/components/FiordaniRenziPricesCard";
+import Image from "next/image";
 
 export interface BCRData {
   fecha_solicitada: string;
@@ -131,6 +132,22 @@ export default async function CotizacionesPage() {
                 preciosData={preciosData}
                 preciosDate={preciosDate}
               />
+            </div>
+            <div className="col-span-1 md:col-span-2 rounded-3xl w-full md:h-auto h-[250px]  relative overflow-hidden">
+              <div className="absolute w-full h-full inset-0">
+                <Image
+                  src={
+                    "https://images.prismic.io/fiordanirenzi/aTxrlXNYClf9oIHd_Banner.jpg?auto=format,compress"
+                  }
+                  width={1200}
+                  height={686}
+                  className="w-full h-full object-cover"
+                  alt=""
+                />
+              </div>
+              <div className="text-white/80 absolute bottom-0 text-xl text-balance font-light p-6 z-50">
+                SOLUCIONES INTEGRALES PARA CADA ETAPA DEL CAMPO.
+              </div>
             </div>
           </div>
         </div>
