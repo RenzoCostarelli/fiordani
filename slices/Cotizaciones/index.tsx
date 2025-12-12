@@ -1,7 +1,11 @@
 import CotizacionesBcrCard from "@/components/CotizacionesBcrCard";
 import CotizacionesBottomCards from "@/components/CotizacionesBottomCards";
 import CotizacionesTitle from "@/components/CotizacionesTitle";
-import { getValidTradingDate, getPreviousBusinessDay, formatDate } from "@/lib/utils";
+import {
+  getValidTradingDate,
+  getPreviousBusinessDay,
+  formatDate,
+} from "@/lib/utils";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 
@@ -87,9 +91,7 @@ const Cotizaciones = async ({ slice }: CotizacionesProps) => {
           <CotizacionesBottomCards
             text_prices={slice.primary.text_prices}
             title_prices={slice.primary.title_prices}
-            bg_promedios={slice.primary.bg_promedios}
-            title_promedios={slice.primary.title_promedios}
-            text_promedios={slice.primary.text_promedios}
+            bg_precios={slice.primary.bg_precios}
           />
         </div>
       </div>
