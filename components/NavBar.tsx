@@ -7,6 +7,7 @@ import LogoSvg from "./Logo";
 import LogoText from "./LogoText";
 import Link from "next/link";
 import { X } from "lucide-react";
+import { usePathname } from "next/navigation";
 gsap.registerPlugin(ScrollTrigger);
 
 const MENU_ITEMS = [
@@ -22,8 +23,14 @@ export default function NavBar() {
   const navRef = useRef(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
+    // Reset navbar visibility on route change
+    if (navRef.current) {
+      gsap.set(navRef.current, { yPercent: 0 });
+    }
+
     const ctx = gsap.context(() => {
       // const navTl = gsap.timeline({ paused: true }).to(navRef.current, {
       //   backgroundColor: "rgba(1, 92, 80, 0.5)",
@@ -48,7 +55,7 @@ export default function NavBar() {
         .progress(1);
 
       ScrollTrigger.create({
-        start: "top -50%",
+        start: "top -20%",
         end: "max",
         // markers: true,
         onUpdate: (self) => {
@@ -64,7 +71,7 @@ export default function NavBar() {
     return () => {
       ctx.kill();
     };
-  }, []);
+  }, [pathname]);
   return (
     <div
       className="fixed w-full top-0 bg-[#015c50]/50 backdrop-blur-sm py-3 z-50 "
