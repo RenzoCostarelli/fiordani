@@ -3,9 +3,11 @@ import { ImageField, KeyTextField } from "@prismicio/client";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ArrowButton from "./ui/ArrowButton";
 import WeatherWidget from "./WeatherWidget";
+import DollarCard from "./DollarCard";
+import { PrismicNextImage } from "@prismicio/next";
 
 // Register GSAP plugin
 gsap.registerPlugin(SplitText, ScrollTrigger);
@@ -13,63 +15,14 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 interface CotizacionesBottomCardsProps {
   text_prices: KeyTextField;
   title_prices: KeyTextField;
-  bg_promedios: ImageField;
-  title_promedios: KeyTextField;
-  text_promedios: KeyTextField;
-}
-
-interface DolarRate {
-  compra: number;
-  venta: number;
-  casa: string;
-  nombre: string;
-  moneda: string;
-  fechaActualizacion: string;
+  bg_precios: ImageField;
 }
 
 export default function CotizacionesBottomCards({
   text_prices,
   title_prices,
-  bg_promedios,
-  title_promedios,
-  text_promedios,
+  bg_precios,
 }: CotizacionesBottomCardsProps) {
-  const [dolarOficial, setDolarOficial] = useState<DolarRate | null>(null);
-  const [dolarBlue, setDolarBlue] = useState<DolarRate | null>(null);
-  const [dolarMep, setDolarMep] = useState<DolarRate | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchDolarRates = async () => {
-      try {
-        const [oficialRes, blueRes, mepRes] = await Promise.all([
-          fetch("https://dolarapi.com/v1/dolares/oficial"),
-          fetch("https://dolarapi.com/v1/dolares/blue"),
-          fetch("https://dolarapi.com/v1/dolares/bolsa"),
-        ]);
-
-        const [oficial, blue, mep] = await Promise.all([
-          oficialRes.json(),
-          blueRes.json(),
-          mepRes.json(),
-        ]);
-
-        setDolarOficial(oficial);
-        setDolarBlue(blue);
-        setDolarMep(mep);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching dollar rates:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchDolarRates();
-    // Refresh every 5 minutes
-    const interval = setInterval(fetchDolarRates, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   useEffect(() => {
     const cards = gsap.utils.toArray<HTMLElement>("[data-card]");
     const ctx = gsap.context(() => {
@@ -91,14 +44,19 @@ export default function CotizacionesBottomCards({
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
       <div
-        className="col-span-1 md:col-span-5 place-content-end bg-[#48604d] p-6 rounded-xl h-[300px] relative text-white"
+        className="col-span-1 md:col-span-5 place-content-end bg-[#48604d] p-6 rounded-xl h-[300px] relative text-white overflow-hidden"
         data-card
       >
-        <div className="text-2xl font-serif">{title_prices}</div>
-        <div className="h-[0.5px] bg-linear-to-r from-white to-white/10 w-full"></div>
-        <div className="flex items-end justify-between">
-          <p className="text-md">{text_prices}</p>
-          <ArrowButton href="/cotizaciones#promedios" />
+        <div className="absolute w-full scale-200 h-full inset-0 overflow-hidden opacity-50 top-0 left-0 [&>img]:object-top-left [&>img]:w-full [&>img]:h-full [&>img]:inset-0 [&>img]:object-cover">
+          <PrismicNextImage field={bg_precios} alt="" />
+        </div>
+        <div className="relative text-white">
+          <div className="text-2xl font-serif">{title_prices}</div>
+          <div className="h-[0.5px] bg-linear-to-r from-white to-white/10 w-full"></div>
+          <div className="flex items-end justify-between">
+            <p className="text-md">{text_prices}</p>
+            <ArrowButton href="/cotizaciones#promedios" />
+          </div>
         </div>
       </div>
       {/* <div
@@ -124,95 +82,7 @@ export default function CotizacionesBottomCards({
       >
         <WeatherWidget />
       </div>
-      <div
-        className="col-span-1 md:col-span-3 bg-[#a5b4aa] rounded-xl h-[300px] relative overflow-hidden py-4 text-white"
-        data-card
-      >
-        {loading ? (
-          <div className="flex items-center justify-center h-full">
-            <div className="animate-pulse text-center">
-              <div className="text-lg">Cargando...</div>
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-col h-full justify-between text-center">
-            <div className="px-4">
-              <div className="text-sm font-light tracking-wider mb-1">
-                DÓLAR OFICIAL
-              </div>
-              <div className="flex justify-between text-[10px] mb-0.5">
-                <span className="opacity-80">COMPRA</span>
-                <span className="opacity-80">VENTA</span>
-              </div>
-              <div className="flex justify-between text-sm font-semibold">
-                <span>
-                  ${" "}
-                  {dolarOficial?.compra.toLocaleString("es-AR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-                <span>
-                  ${" "}
-                  {dolarOficial?.venta.toLocaleString("es-AR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
-            </div>
-
-            <div className="px-4 border-t pt-4">
-              <div className="text-sm font-light tracking-wider mb-1">
-                DÓLAR BLUE
-              </div>
-              <div className="flex justify-between text-[10px] mb-0.5">
-                <span className="opacity-80">COMPRA</span>
-                <span className="opacity-80">VENTA</span>
-              </div>
-              <div className="flex justify-between text-sm font-semibold">
-                <span>
-                  ${" "}
-                  {dolarBlue?.compra.toLocaleString("es-AR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-                <span>
-                  ${" "}
-                  {dolarBlue?.venta.toLocaleString("es-AR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
-            </div>
-
-            <div className="px-4 border-t pt-4">
-              <div className="text-sm font-light tracking-wider mb-1">
-                DÓLAR MEP
-              </div>
-              <div className="flex justify-between text-[10px] mb-0.5">
-                <span className="opacity-80">COMPRA</span>
-                <span className="opacity-80">VENTA</span>
-              </div>
-              <div className="flex justify-between text-sm font-semibold">
-                <span>
-                  ${" "}
-                  {dolarMep?.compra.toLocaleString("es-AR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-                <span>
-                  ${" "}
-                  {dolarMep?.venta.toLocaleString("es-AR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
-              <div className="rotate-90 w-max mx-auto mt-3">
-                <ArrowButton href="/cotizaciones" />
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+      <DollarCard />
     </div>
   );
 }

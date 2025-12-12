@@ -28,7 +28,7 @@ const Comerciales: FC<ComercialesProps> = ({ slice }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [selectedImage, setSelectedImage] = useState<ImageField | null>(null);
 
-  const comerciales = slice.primary.comerciales;
+  const comerciales = slice.primary.comerciales.slice(0, 2);
 
   useEffect(() => {
     const slides = gsap.utils.toArray<HTMLElement>("[data-slide]");
