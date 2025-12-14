@@ -30,28 +30,46 @@ const Slider: FC<SliderProps> = ({ slice }) => {
   const slides = slice.primary.slide;
   const swiperRef = useRef<SwiperType | null>(null);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const splitRefs = useRef<(SplitText | null)[]>([]);
+  const prevIndex = useRef<number>(0);
 
-  const animateText = (element: HTMLElement) => {
+  const resetSlide = (index: number) => {
+    const element = textRefs.current[index];
+    if (!element) return;
+
+    gsap.killTweensOf(element.querySelectorAll(".word"));
+
+    if (splitRefs.current[index]) {
+      splitRefs.current[index].revert();
+      splitRefs.current[index] = null;
+    }
+
+    gsap.set(element, { opacity: 0 });
+  };
+
+  const animateSlide = (index: number) => {
+    const element = textRefs.current[index];
+    if (!element) return;
+
     const split = new SplitText(element, {
       type: "chars,words",
       charsClass: "char",
       wordsClass: "word",
     });
+    splitRefs.current[index] = split;
 
+    gsap.set(split.words, { opacity: 0, x: -50 });
     gsap.set(element, { opacity: 1 });
 
-    gsap.from(split.words, {
-      opacity: 0,
-      x: -50,
+    gsap.to(split.words, {
+      opacity: 1,
+      x: 0,
       stagger: 0.05,
     });
   };
 
   useEffect(() => {
-    // Animate the first slide on mount
-    if (textRefs.current[0]) {
-      animateText(textRefs.current[0]);
-    }
+    animateSlide(0);
   }, []);
 
   return (
@@ -76,17 +94,12 @@ const Slider: FC<SliderProps> = ({ slice }) => {
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
-            // onSlideChangeTransitionStart={(swiper) => {
-            //   const realIndex = swiper.activeIndex;
-            //   if (textRefs.current[realIndex]) {
-            //     transitionStart(textRefs.current[realIndex]!);
-            //   }
-            // }}
+            onSlideChangeTransitionStart={() => {
+              resetSlide(prevIndex.current);
+            }}
             onSlideChangeTransitionEnd={(swiper) => {
-              const realIndex = swiper.realIndex;
-              if (textRefs.current[realIndex]) {
-                animateText(textRefs.current[realIndex]!);
-              }
+              animateSlide(swiper.realIndex);
+              prevIndex.current = swiper.realIndex;
             }}
             className="h-full"
           >
