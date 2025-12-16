@@ -100,6 +100,7 @@ async function getPrecios(): Promise<PreciosData | null> {
 export default async function CotizacionesPage() {
   const bcrData = await getBCRData();
   const preciosData = await getPrecios();
+  console.log(preciosData);
 
   // Format dates from the actual data (dd/mm/yyyy)
   const bcrDate = bcrData?.fecha_solicitada
