@@ -3,12 +3,11 @@ import { CircleDollarSign } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface DolarRate {
+  moneda: string;
+  origen: string;
   compra: number;
   venta: number;
-  casa: string;
-  nombre: string;
-  moneda: string;
-  fechaActualizacion: string;
+  actualizado: string;
 }
 
 export default function DollarCard() {
@@ -18,10 +17,9 @@ export default function DollarCard() {
   useEffect(() => {
     const fetchDolarRates = async () => {
       try {
-        const oficialRes = await fetch(
-          "https://dolarapi.com/v1/dolares/oficial"
-        );
+        const oficialRes = await fetch("/api/dolar");
         const oficial = await oficialRes.json();
+        console.log("Dólar Oficial:", oficial);
 
         setDolarOficial(oficial);
         setLoading(false);
@@ -52,7 +50,7 @@ export default function DollarCard() {
         <div className="flex flex-col h-full justify-center text-center">
           <CircleDollarSign width={100} height={100} className="mx-auto mb-4" />
           <div className="px-4">
-            <div className="text-xl tracking-wider mb-4">DÓLAR OFICIAL</div>
+            <div className="text-xl tracking-wider mb-4">DÓLAR BNA</div>
             <div className="h-0.5 w-full md:w-[90%] mx-auto bg-white mb-4"></div>
             <div className="flex justify-between px-4 md:px-8">
               <div className="flex flex-col text-center">
