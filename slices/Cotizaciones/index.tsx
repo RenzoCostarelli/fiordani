@@ -6,6 +6,7 @@ import {
   getPreviousBusinessDay,
   formatDate,
 } from "@/lib/utils";
+import { getPizarraRosarioData } from "@/lib/getPizarraData";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 
@@ -26,18 +27,8 @@ async function getBCRData(): Promise<BCRData | null> {
 
   while (attempts < maxAttempts) {
     try {
-      const response = await fetch(
-        `https://fiordanirenzi.com.ar/api_pizarra_rosario.php?fecha=${currentDate}`,
-        {
-          next: { revalidate: 3600 }, // Revalidate every hour
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch BCR data");
-      }
-
-      const data = await response.json();
+      // Fetch data directly from database
+      const data = await getPizarraRosarioData(currentDate);
 
       // Check if we have valid data (tabla_json should have content)
       if (data && data.tabla_json && data.tabla_json.length > 2) {
