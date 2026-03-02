@@ -25,10 +25,10 @@ async function getBCRData(): Promise<BCRData | null> {
   while (attempts < maxAttempts) {
     try {
       const response = await fetch(
-        `https://fiordanirenzi.com.ar/api_pizarra_rosario.php?fecha=${currentDate}`,
+        `https://api.fiordanirenzi.com.ar/api_pizarra_rosario.php?fecha=${currentDate}`,
         {
           next: { revalidate: 3600 }, // Revalidate every hour
-        }
+        },
       );
 
       if (!response.ok) {
@@ -65,10 +65,10 @@ async function getPrecios(): Promise<PreciosData | null> {
   while (attempts < maxAttempts) {
     try {
       const response = await fetch(
-        `https://fiordanirenzi.com.ar/api_pizarra.php?fecha=${currentDate}`,
+        `https://api.fiordanirenzi.com.ar/api_pizarra.php?fecha=${currentDate}`,
         {
           next: { revalidate: 3600 }, // Revalidate every hour
-        }
+        },
       );
 
       if (!response.ok) {
